@@ -8,6 +8,18 @@
   <script>
     function myFunction() { 
     document.getElementById("pic").innerHTML = '<img src="./svgNotes/freepik__background__93616.png">';
+        const move = document.getElementById("move");
+
+    document.body.onpointermove = event => {
+        const { clientX, clientY } = event;
+
+        pic.animate({
+            left: `${clientX}px`,
+            top: `${clientY}px`
+    
+        }, {duration: 1000, fill: "forwards"})
+
+    }
     document.getElementById("note").innerHTML = "why not movable?";
   }
   </script>

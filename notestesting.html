@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note Drag Example</title>
+    
+</head>
 <body>
-  <button type="button" onclick="noteDrag()">Spawn a note</button> <br>
-  <div id="note"></div>
-  <p id="texto"></p>
 
-  <script>
-    function noteDrag() { 
-    button.addEventListener('mousedown', function() {
-        document.getElementById("note").innerHTML = "<img src='./svgNotes/freepik__background__93616.png'>";
-    });
+    <button type="button" id="spawnButton" class="button">Spawn a note</button> <br>
+    <div id="note"></div>
+    <p id="texto"></p>
 
-    button.addEventListener('mouseup', function() {
-        document.getElementById("note").innerHTML = "";
-    });
+    <script>
+        const button = document.getElementById("spawnButton");
 
-    document.getElementById("texto").innerHTML = "why not movable?";
-  }
-  </script>
+        button.addEventListener('mousedown', function() {
+            document.getElementById("note").innerHTML = "<img src='<img src='./svgNotes/freepik__background__93616.png' alt='one4th'>";
+            document.getElementById("texto").innerHTML = "Why not movable?";
+        });
+
+        button.addEventListener('mouseup', function() {
+            document.getElementById("note").innerHTML = "";
+        });
+    </script>
+
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Note Drag Example</title>
+    <title>dis kinda a bop💜</title>
     
 </head>
 <body>
@@ -18,6 +18,19 @@
         button.addEventListener('mousedown', function() {
             document.getElementById("note").innerHTML = "<img src='./svgNotes/freepik__background__93616.png' alt='one4th'>";
             document.getElementById("texto").innerHTML = "Why not movable?";
+
+            const move = document.getElementById("note");
+
+            document.body.onpointermove = event => {
+                const { clientX, clientY } = event;
+
+                move.animate({
+                    left: `${clientX}px`,
+                    top: `${clientY}px`
+    
+            }, {duration: 1000, fill: "forwards"})
+
+}
         });
 
         document.addEventListener('mouseup', function() {

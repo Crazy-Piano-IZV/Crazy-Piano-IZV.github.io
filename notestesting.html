@@ -1,26 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-  <button type="button" onclick="myFunction()">Spawn a note</button> <br>
-  <div id="pic"></div>
-  <p id="note"></p>
+  <button type="button" onclick="noteDrag()">Spawn a note</button> <br>
+  <div id="note"></div>
+  <p id="texto"></p>
 
   <script>
-    function myFunction() { 
-    document.getElementById("pic").innerHTML = '<img src="./svgNotes/freepik__background__93616.png">';
-        const move = document.getElementById("move");
+    function noteDrag() { 
+    button.addEventListener('mousedown', function() {
+        document.getElementById("note").innerHTML = "<img src='./svgNotes/'>";
+    });
 
-    document.body.onpointermove = event => {
-        const { clientX, clientY } = event;
+    button.addEventListener('mouseup', function() {
+        document.getElementById("note").innerHTML = "";
+    });
 
-        pic.animate({
-            left: `${clientX}px`,
-            top: `${clientY}px`
-    
-        }, {duration: 1000, fill: "forwards"})
-
-    }
-    document.getElementById("note").innerHTML = "why not movable?";
+    document.getElementById("texto").innerHTML = "why not movable?";
   }
   </script>
 </body>

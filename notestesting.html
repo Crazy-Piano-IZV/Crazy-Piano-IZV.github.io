@@ -4,40 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Note Drag Example</title>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
-    <style>
-        #note img {
-            width: 150px; /* Set a width for the image */
-            height: auto; /* Maintain aspect ratio */
-        }
-    </style>
-    <script>
-        $(document).ready(function() {
-            const button = document.getElementById("spawnButton");
-
-            button.addEventListener('mousedown', function() {
-                // Create a new image element
-                const img = $("<img src='./svgNotes/freepik__background__93616.png' alt='one4th'>");
-                $("#note").html(img); // Add the image to the note div
-                $("#texto").html("Why not movable?");
-
-                // Make the new image draggable
-                img.draggable();
-            });
-
-            button.addEventListener('mouseup', function() {
-                $("#note").html(""); // Clear the note div
-            });
-        });
-    </script>
+    
 </head>
 <body>
 
     <button type="button" id="spawnButton" class="button">Spawn a note</button> <br>
     <div id="note"></div>
     <p id="texto"></p>
+
+    <script>
+        const button = document.getElementById("spawnButton");
+
+        button.addEventListener('mousedown', function() {
+            document.getElementById("note").innerHTML = "<img src='./svgNotes/freepik__background__93616.png' alt='one4th'>";
+            document.getElementById("texto").innerHTML = "Why not movable?";
+        });
+
+        document.addEventListener('mouseup', function() {
+            document.getElementById("note").innerHTML = "";
+        });
+    </script>
 
 </body>
 </html>

@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dis kinda a bop💜</title>
-    
+    <style>
+        #note {
+            position: absolute; /* Set position to absolute */
+            pointer-events: none; /* Prevent pointer events on the image */
+        }
+    </style>
 </head>
 <body>
 
@@ -20,21 +25,20 @@
             document.getElementById("texto").innerHTML = "Why not movable?";
 
             const move = document.getElementById("note");
+            move.style.pointerEvents = 'auto'; // Allow pointer events on the note
 
             document.body.onpointermove = event => {
                 const { clientX, clientY } = event;
 
-                move.animate({
-                    left: `${clientX}px`,
-                    top: `${clientY}px`
-    
-            }, {duration: 1000, fill: "forwards"})
-
-}
+                // Update the position of the note
+                move.style.left = `${clientX}px`;
+                move.style.top = `${clientY}px`;
+            };
         });
 
         document.addEventListener('mouseup', function() {
             document.getElementById("note").innerHTML = "";
+            document.body.onpointermove = null; // Stop moving when mouse is released
         });
     </script>
 

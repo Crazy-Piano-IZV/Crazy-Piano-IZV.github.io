@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -31,8 +30,8 @@
                 const { clientX, clientY } = event;
 
                 // Update the position of the note
-                move.style.left = `${clientX}px`;
-                move.style.top = `${clientY}px`;
+                move.style.left = `${clientX-50}px`;
+                move.style.top = `${clientY-50}px`;
             };
         });
 

@@ -8,13 +8,26 @@
             position: absolute; /* Set position to absolute */
             pointer-events: none; /* Prevent pointer events on the image */
         }
+
+        #trackableObject {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            /* position: absolute;
+            top: 50px;
+            left: 50px;*/
+            transition: background-color 0.3s;
+        }
+
     </style>
 </head>
 <body>
 
     <button type="button" id="spawnButton" class="button">Spawn a note</button> <br>
-    <div id="note"></div>
+    <div id="trackableObject"></div>
     <p id="texto"></p>
+    <div id="note"></div>
+
 
     <script>
         const button = document.getElementById("spawnButton");
@@ -43,6 +56,32 @@
             move.style.left = `${initialPosition.left}px`; 
             move.style.top = `${initialPosition.top}px`; // Return to initial position
 
+        });
+    </script>
+    <script>
+        const trackableObject = document.getElementById('trackableObject');
+        const statusText = document.getElementById('status');
+
+        // Function to check if the mouse is over the object
+        function isMouseOverObject(mouseX, mouseY) {
+            const rect = trackableObject.getBoundingClientRect();
+            return (
+                mouseX >= rect.left &&
+                mouseX <= rect.right &&
+                mouseY >= rect.top &&
+                mouseY <= rect.bottom
+            );
+        }
+
+        // Mouse move event listener
+        document.addEventListener('mousemove', (event) => {
+            const { clientX, clientY } = event;
+
+            if (isMouseOverObject(clientX, clientY)) {
+                trackableObject.style.backgroundColor = 'lightgreen'; // Change color when mouse is over
+            } else {
+                trackableObject.style.backgroundColor = 'lightblue'; // Reset color when mouse is outside
+            }
         });
     </script>
 

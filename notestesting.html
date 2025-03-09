@@ -18,12 +18,14 @@
 
     <script>
         const button = document.getElementById("spawnButton");
+        let initialPosition = { left: 0, top: 0 };
+        const move = document.getElementById("note");
 
         button.addEventListener('mousedown', function() {
-            document.getElementById("note").innerHTML = "<img src='./svgNotes/freepik__background__93616.png' alt='one4th'>";
-            document.getElementById("texto").innerHTML = "Why not movable?";
 
-            const move = document.getElementById("note");
+            document.getElementById("note").innerHTML = "<img src='./svgNotes/freepik__background__93616.png' alt='one4th'>";
+            document.getElementById("texto").innerHTML = "needs a dropping space";
+
             move.style.pointerEvents = 'auto'; // Allow pointer events on the note
 
             document.body.onpointermove = event => {
@@ -38,7 +40,14 @@
         document.addEventListener('mouseup', function() {
             document.getElementById("note").innerHTML = "";
             document.body.onpointermove = null; // Stop moving when mouse is released
+            move.style.left = `${initialPosition.left}px`; 
+            move.style.top = `${initialPosition.top}px`; // Return to initial position
+
         });
+    </script>
+
+</body>
+</html>
     </script>
 
 </body>

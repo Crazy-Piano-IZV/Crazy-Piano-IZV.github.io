@@ -36,10 +36,9 @@
 
         button.addEventListener('mousedown', function() {
 
+            move.style.pointerEvents = 'auto'; // Allow pointer events on the note
             document.getElementById("note").innerHTML = "<img src='./svgNotes/freepik__background__93616.png' alt='one4th'>";
             document.getElementById("texto").innerHTML = "needs a dropping space";
-
-            move.style.pointerEvents = 'auto'; // Allow pointer events on the note
 
             document.body.onpointermove = event => {
                 const { clientX, clientY } = event;

@@ -55,8 +55,6 @@
 
         button.addEventListener('mousedown', function() {
 
-            document.getElementById("note").innerHTML = "<img src='./svgNotes/freepik__background__93616.png' alt='one4th'>";
-            document.getElementById("texto").innerHTML = "needs a dropping space";
 
             move.style.pointerEvents = 'auto'; // Allow pointer events on the note
 
@@ -67,6 +65,8 @@
                 move.style.left = `${clientX-50}px`;
                 move.style.top = `${clientY-50}px`;
             };
+            document.getElementById("note").innerHTML = "<img src='./svgNotes/freepik__background__93616.png' alt='one4th'>";
+            document.getElementById("texto").innerHTML = "needs a dropping space";
         });
 
         document.addEventListener('mouseup', function() {

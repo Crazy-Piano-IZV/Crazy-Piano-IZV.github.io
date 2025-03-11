@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Button Creation</title>
+    <style>
+        #button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px;
+        }
+
+        .dynamic-button {
+            padding: 10px 20px;
+            background-color: #06306a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dynamic-button:hover {
+            background-color: #052755;
+        }
+
+        #toggleButton {
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #toggleButton:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="toggleButton">Toggle Buttons</button>
+    <div id="button-container"></div>
+
+    <script>
+        // Function to create buttons
+        function createButtons(numButtons) {
+            const container = document.getElementById('button-container');
+            for (let i = 0; i < numButtons; i++) {
+                const button = document.createElement('button');
+                button.innerText = `Button ${i + 1}`;
+                button.className = 'dynamic-button';
+                button.onclick = function() {
+                    alert(`Button ${i + 1} clicked!`);
+                };
+                container.appendChild(button);
+            }
+        }
+
+        // Function to toggle button visibility
+        function toggleButtons(shouldShow) {
+            const buttons = document.querySelectorAll('.dynamic-button');
+            buttons.forEach(button => {
+                button.style.display = shouldShow ? 'block' : 'none';
+            });
+        }
+
+        // Create x buttons
+        createButtons(10);
+
+        // Add event listener to toggle button
+        document.getElementById('toggleButton').addEventListener('click', function() {
+            const buttons = document.querySelectorAll('.dynamic-button');
+            const areButtonsVisible = buttons[0].style.display !== 'none';
+            toggleButtons(!areButtonsVisible);
+            this.innerText = areButtonsVisible ? 'Show Buttons' : 'Hide Buttons';
+        });
+    </script>
+
+</body>
+</html>

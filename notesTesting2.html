@@ -43,43 +43,50 @@
 </head>
 <body>
 
-    <button id="toggleButton">Toggle Buttons</button>
     <div id="button-container"></div>
+    <p id="output"></p>
+    <button id="downloadBtn">Download Array</button>
 
     <script>
-        // Function to create buttons
-        function createButtons(numButtons) {
+        let numButtons = 9; //number of buttons in a cell
+        let numContainers = 10
+
+        // Define enCoded as an array
+        let enCoded = new Array(numContainers).fill(3);
+
+        for (let j = 0; j < numContainers; j ++  ) {
             const container = document.getElementById('button-container');
+            const button = document.createElement('button-container');
             for (let i = 0; i < numButtons; i++) {
                 const button = document.createElement('button');
-                button.innerText = `Button ${i + 1}`;
-                button.className = 'dynamic-button';
+                button.innerText = `Button ${j * numButtons + i + 1}`;
+                button.className = 'dynamic-button'; // Uncommented to apply styles
                 button.onclick = function() {
-                    alert(`Button ${i + 1} clicked!`);
+                    enCoded[j] = enCoded[j]-1; // Remove 1 when clicked
+                    document.getElementById("output").innerHTML = enCoded.join(', '); // Update output
                 };
                 container.appendChild(button);
             }
         }
-
-        // Function to toggle button visibility
-        function toggleButtons(shouldShow) {
-            const buttons = document.querySelectorAll('.dynamic-button');
-            buttons.forEach(button => {
-                button.style.display = shouldShow ? 'block' : 'none';
-            });
-        }
-
-        // Create x buttons
-        createButtons(10);
-
-        // Add event listener to toggle button
-        document.getElementById('toggleButton').addEventListener('click', function() {
-            const buttons = document.querySelectorAll('.dynamic-button');
-            const areButtonsVisible = buttons[0].style.display !== 'none';
-            toggleButtons(!areButtonsVisible);
-            this.innerText = areButtonsVisible ? 'Show Buttons' : 'Hide Buttons';
+        
+        //code for downloading
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            downloadArrayAsTxt(enCoded);
         });
-    </script>
 
+        function downloadArrayAsTxt(array) {
+            // Convert the array to a string
+            const arrayString = enCoded
+            const blob = new Blob([arrayString], { type: 'text/plain' });
+
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'myMasterpiece.txt';
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
 </body>
 </html>

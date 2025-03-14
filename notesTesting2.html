@@ -9,7 +9,13 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin: 10px;
         }
 
         .dynamic-button {
@@ -26,7 +32,7 @@
             background-color: #052755;
         }
 
-        #toggleButton {
+        .download-btn {
             margin: 20px;
             padding: 10px 20px;
             background-color: #28a745;
@@ -36,57 +42,118 @@
             cursor: pointer;
         }
 
-        #toggleButton:hover {
+        .download-btn:hover {
             background-color: #218838;
+        }
+
+        .output {
+            margin: 10px 20px;
+            font-family: monospace;
         }
     </style>
 </head>
 <body>
-
     <div id="button-container"></div>
-    <p id="output"></p>
-    <button id="downloadBtn">Download Array</button>
+    <p id="output" class="output"></p>
+    <button id="downloadBtn" class="download-btn">Download Array</button>
 
     <script>
-        let numButtons = 9; //number of buttons in a cell
-        let numContainers = 10
+        // Configuration variables
+        const CONFIG = {
+            numButtonPairs: 8,
+            numContainers: 10,
+            buttonTypes: [1, 2]
+        };
+        
+        let buttonNumber = 0;
 
-        // Define enCoded as an array
-        let enCoded = new Array(numContainers).fill(3);
-
-        for (let j = 0; j < numContainers; j ++  ) {
+        // Initialize encoded array with default value 3
+        const enCoded = new Array(CONFIG.numContainers * CONFIG.numButtonPairs).fill(3);
+        const outputElement = document.getElementById("output");
+        
+        // Create button containers and buttons using document fragment for better performance
+        function createButtons() {
             const container = document.getElementById('button-container');
-            const button = document.createElement('button-container');
-            for (let i = 0; i < numButtons; i++) {
-                const button = document.createElement('button');
-                button.innerText = `Button ${j * numButtons + i + 1}`;
-                button.className = 'dynamic-button'; // Uncommented to apply styles
-                button.onclick = function() {
-                    enCoded[j] = enCoded[j]-1; // Remove 1 when clicked
-                    document.getElementById("output").innerHTML = enCoded.join(', '); // Update output
-                };
-                container.appendChild(button);
+            const fragment = document.createDocumentFragment();
+            
+            for (let j = 0; j < CONFIG.numContainers; j++) {
+                const buttonDiv = document.createElement('div');
+                buttonDiv.className = 'button-container';
+                
+                for (let i = 0; i < CONFIG.numButtonPairs; i++) {
+                    const arrayIndex = j * CONFIG.numButtonPairs + i;
+                    
+                    for (const doRe of CONFIG.buttonTypes) {
+                        buttonNumber++
+
+                        const button = document.createElement('button');
+                        // Use the doRe value to differentiate between button pairs
+                        
+                        button.textContent = `Button ${buttonNumber}`;
+                        button.className = 'dynamic-button';
+                        button.dataset.index = arrayIndex;
+                        button.dataset.value = doRe;
+                        buttonDiv.appendChild(button);
+                    }
+                }
+                
+                fragment.appendChild(buttonDiv);
+            }
+            
+            container.appendChild(fragment);
+            
+            // Use event delegation for button clicks
+            container.addEventListener('click', handleButtonClick);
+        }
+        
+        // Handle button clicks with event delegation
+        function handleButtonClick(event) {
+            const target = event.target;
+            
+            if (target.className === 'dynamic-button') {
+                const index = parseInt(target.dataset.index);
+                const value = parseInt(target.dataset.value);
+                
+                enCoded[index] -= value;
+                updateOutput();
             }
         }
         
-        //code for downloading
-        document.getElementById('downloadBtn').addEventListener('click', function() {
-            downloadArrayAsTxt(enCoded);
-        });
-
-        function downloadArrayAsTxt(array) {
-            // Convert the array to a string
-            const arrayString = enCoded
+        // Update the output display
+        function updateOutput() {
+            outputElement.textContent = enCoded.join(', ');
+        }
+        
+        // Download array as text file
+        function downloadArrayAsTxt() {
+            const arrayString = enCoded.join(', ');
             const blob = new Blob([arrayString], { type: 'text/plain' });
-
+            
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = 'myMasterpiece.txt';
-
+            
+            // Use cleaner approach without adding/removing from DOM
+            link.style.display = 'none';
             document.body.appendChild(link);
             link.click();
-            document.body.removeChild(link);
+            
+            // Clean up the URL object after download
+            setTimeout(() => {
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            }, 100);
         }
+        
+        // Initialize the application
+        function init() {
+            createButtons();
+            document.getElementById('downloadBtn').addEventListener('click', downloadArrayAsTxt);
+            updateOutput(); // Show initial state
+        }
+        
+        // Start the app when DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>

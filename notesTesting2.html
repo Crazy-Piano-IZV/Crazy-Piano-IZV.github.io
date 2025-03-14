@@ -67,8 +67,9 @@
         
         let buttonNumber = 0;
 
-        // Initialize encoded array with default value 3
-        const enCoded = new Array(CONFIG.numContainers * CONFIG.numButtonPairs).fill(3);
+        // Initialize encoded array with default value 3 and note meaning 4
+        const enCoded = new Array(CONFIG.numContainers * (CONFIG.numButtonPairs+1)).fill(0);
+        for (let i = 0; i < enCoded.length; i += 9) { enCoded[i] = 4;}
         const outputElement = document.getElementById("output");
         
         // Create button containers and buttons using document fragment for better performance
@@ -79,9 +80,9 @@
             for (let j = 0; j < CONFIG.numContainers; j++) {
                 const buttonDiv = document.createElement('div');
                 buttonDiv.className = 'button-container';
-                
+
                 for (let i = 0; i < CONFIG.numButtonPairs; i++) {
-                    const arrayIndex = j * CONFIG.numButtonPairs + i;
+                    const arrayIndex = 1 + j * CONFIG.numButtonPairs + i;
                     
                     for (const doRe of CONFIG.buttonTypes) {
                         buttonNumber++
@@ -89,14 +90,13 @@
                         const button = document.createElement('button');
                         // Use the doRe value to differentiate between button pairs
                         
-                        button.textContent = `Button ${buttonNumber}`;
+                        button.textContent = `${buttonNumber}`;
                         button.className = 'dynamic-button';
                         button.dataset.index = arrayIndex;
                         button.dataset.value = doRe;
                         buttonDiv.appendChild(button);
                     }
                 }
-                
                 fragment.appendChild(buttonDiv);
             }
             
@@ -114,7 +114,7 @@
                 const index = parseInt(target.dataset.index);
                 const value = parseInt(target.dataset.value);
                 
-                enCoded[index] -= value;
+                enCoded[index] += value;
                 updateOutput();
             }
         }
@@ -126,7 +126,7 @@
         
         // Download array as text file
         function downloadArrayAsTxt() {
-            const arrayString = enCoded.join(', ');
+            const arrayString = enCoded.join('');
             const blob = new Blob([arrayString], { type: 'text/plain' });
             
             const link = document.createElement('a');

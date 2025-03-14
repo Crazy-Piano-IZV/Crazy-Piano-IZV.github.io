@@ -68,7 +68,7 @@
         let buttonNumber = 0;
 
         // Initialize encoded array with default value 3 and note meaning 4
-        const enCoded = new Array(CONFIG.numContainers * (CONFIG.numButtonPairs+1)).fill(0);
+        const enCoded = new Array(CONFIG.numContainers * (CONFIG.numButtonPairs+1)).fill(3);
         for (let i = 0; i < enCoded.length; i += 9) { enCoded[i] = 4;}
         const outputElement = document.getElementById("output");
         
@@ -111,11 +111,13 @@
             const target = event.target;
             
             if (target.className === 'dynamic-button') {
-                const index = parseInt(target.dataset.index);
-                const value = parseInt(target.dataset.value);
-                
-                enCoded[index] += value;
-                updateOutput();
+                    const index = parseInt(target.dataset.index);
+                    const value = parseInt(target.dataset.value);
+
+                    if ([value, 3].includes(enCoded[index])){
+                    enCoded[index] -= value;
+                    updateOutput();
+                    }
             }
         }
         
@@ -153,6 +155,10 @@
         }
         
         // Start the app when DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>

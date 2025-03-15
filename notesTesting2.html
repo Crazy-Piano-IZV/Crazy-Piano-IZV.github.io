@@ -76,13 +76,14 @@
         function createButtons() {
             const container = document.getElementById('button-container');
             const fragment = document.createDocumentFragment();
+            let arrayIndex = 0;
             
             for (let j = 0; j < CONFIG.numContainers; j++) {
                 const buttonDiv = document.createElement('div');
                 buttonDiv.className = 'button-container';
+                arrayIndex++;
 
                 for (let i = 0; i < CONFIG.numButtonPairs; i++) {
-                    const arrayIndex = 1 + j * CONFIG.numButtonPairs + i;
                     
                     for (const doRe of CONFIG.buttonTypes) {
                         buttonNumber++
@@ -96,6 +97,7 @@
                         button.dataset.value = doRe;
                         buttonDiv.appendChild(button);
                     }
+                    arrayIndex++;
                 }
                 fragment.appendChild(buttonDiv);
             }
@@ -155,10 +157,6 @@
         }
         
         // Start the app when DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', init);
-    </script>
-</body>
-</html>
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>

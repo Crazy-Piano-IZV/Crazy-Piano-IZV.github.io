@@ -12,7 +12,7 @@
         #trackableObject {
             width: 100px;
             height: 100px;
-            background-color: lightblue;
+            background-color: transparent;
             /* position: absolute;
             top: 50px;
             left: 50px;*/
@@ -52,14 +52,17 @@
     <script>
         const button = document.getElementById("spawnButton");
         const move = document.getElementById("note");
+        let noteTransport = false;
 
         button.addEventListener('mousedown', function() {
 
 
             move.style.pointerEvents = 'auto'; // Allow pointer events on the note
 
+
             document.body.onpointermove = event => {
                 const { clientX, clientY } = event;
+                noteTransport = true;
 
                 // Update the position of the note
                 move.style.left = `${clientX-50}px`;
@@ -70,6 +73,8 @@
         });
 
         document.addEventListener('mouseup', function() {
+            noteTransport = false;
+
             document.getElementById("note").innerHTML = "";
             document.body.onpointermove = null; // Stop moving when mouse is released
             move.style.left = `${-3000}px`; 
@@ -95,11 +100,12 @@
         // Mouse move event listener
         document.addEventListener('mousemove', (event) => {
             const { clientX, clientY } = event;
+            const nT = noteTransport;
 
-            if (isMouseOverObject(clientX, clientY)) {
+            if (isMouseOverObject(clientX, clientY)&&noteTransport) {
                 trackableObject.style.backgroundColor = 'lightgreen'; // Change color when mouse is over
             } else {
-                trackableObject.style.backgroundColor = 'lightblue'; // Reset color when mouse is outside
+                trackableObject.style.backgroundColor = 'transparent'; // Reset color when mouse is outside
             }
         });
     </script>

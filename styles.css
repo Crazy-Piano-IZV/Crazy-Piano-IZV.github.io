@@ -82,7 +82,7 @@ body {
     z-index: 1001;
 }
 #menu {
-    position: absolute;
+    position: fixed;
     top: 50px;
     left: -25%;
     width: 25%;

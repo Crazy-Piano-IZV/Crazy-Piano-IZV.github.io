@@ -7,8 +7,6 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Menu Button -->
-  <button class="menu-btn">☰ Menu</button>
 
   <!-- Piano Section -->
   <div class="piano">
@@ -26,6 +24,44 @@
     <div class="key white" data-note="B"></div>
     <div class="key white" data-note="C2"></div>
   </div>
-  <script src="script.js"></script>
+
+
+  <!-- menu section-->
+
+  <span id="languageToggle" onclick="toggleLanguage()">LV</span>
+    <button id="toggleButton">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </button>
+    <button id="homeButton" onclick="goHome()" data-lang="home">Galvenā</button>
+    <div id="menu">
+        <h2 id="pageTitle">Virtuālās Klavieres</h2>
+        <button class="menu-option" onclick="toggleLibrary()" data-lang="library">Skaņu bibliotēka</button>
+        <button class="menu-option" onclick="downloadMelody()" data-lang="download">Lejupielādēt melodiju</button>
+        <button class="menu-option" onclick="toggleTrainingMode()" data-lang="training">Apmācības režīms</button>
+        <button class="menu-option" onclick="changeTone()" data-lang="tones">Mainīt toņus</button>
+    </div>
+    <div id="musicLibrary">
+        <h1 id="libraryTitle">Skaņu bibliotēka</h1>
+        <div class="track">
+            <img src="cover1.jpg" alt="Vāks 1">
+            <div class="info">
+                <strong data-lang="composition1">Kompozīcija:</strong> Mēness sonāte<br>
+                <strong data-lang="author1">Autors:</strong> Ludvigs van Bēthovens
+            </div>
+        </div>
+        <div class="track">
+            <img src="cover2.jpg" alt="Vāks 2">
+            <div class="info">
+                <strong data-lang="composition2">Kompozīcija:</strong> Čaikovska Nocturne<br>
+                <strong data-lang="author2">Autors:</strong> Pjotrs Čaikovskis
+            </div>
+        </div>
+    </div>
+
+
+	<script src="script.js"></script>
+
 </body>
 </html>

@@ -1,118 +1,148 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dis kinda a bop💜</title>
     <style>
-        #note {
-            position: absolute; /* Set position to absolute */
-            pointer-events: none; /* Prevent pointer events on the image */
-        }
-
-        #trackableObject {
-            width: 100px;
-            height: 100px;
-            background-color: transparent;
-            /* position: absolute;
-            top: 50px;
-            left: 50px;*/
-            transition: background-color 0.3s;
-        }
-
-        .line-container {
-            width: 100%;
-            height: 75px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between; /* Space lines evenly */
-        }
-
-        .line {
-           height: 2px; /* Adjust thickness of the lines */
-            background-color: black; /* Line color */
-            width: 100%; /* Full width */
-        }
-
+        #note { position: absolute; pointer-events: none; }
+        #trackableObject { width: 100px; height: 100px; background: transparent; transition: background 0.3s; }
+        .line-container { width: 100%; height: 75px; display: flex; flex-direction: column; justify-content: space-between; }
+        .line { height: 2px; background: black; width: 100%; }
+        #button-container { display: flex; flex-wrap: wrap; gap: 10px; }
+        .button-container { display: flex; flex-direction: column; gap: 5px; margin: 10px; }
+        .dynamic-button, .download-btn { padding: 10px 20px; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .dynamic-button { background: #06306a; transition: background 0.3s; }
+        .dynamic-button:hover { background: #052755; }
+        .download-btn { background: #28a745; margin: 20px; }
+        .download-btn:hover { background: #218838; }
+        .output { margin: 10px 20px; font-family: monospace; }
     </style>
 </head>
 <body>
-
-    <button type="button" id="spawnButton" class="button">Spawn a note</button> <br>
+    <button id="spawnButton">Spawn a note</button>
     <div id="trackableObject"></div>
     <p id="texto"></p>
-    <div id="note" position="absolute"></div>
+    <div id="note"></div>
     <div class="line-container">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
+        <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
     </div>
-
+    <div id="button-container"></div>
+    <p id="output" class="output"></p>
+    <button id="downloadBtn" class="download-btn">Download Array</button>
+    <input type="file" id="fileInput" accept=".txt">
+    <pre id="fileContent"></pre>
+    
     <script>
-        const button = document.getElementById("spawnButton");
-        const move = document.getElementById("note");
+        const button = document.getElementById("spawnButton"), move = document.getElementById("note");
         let noteTransport = false;
 
-        button.addEventListener('mousedown', function() {
-
-
-            move.style.pointerEvents = 'auto'; // Allow pointer events on the note
-
-
-            document.body.onpointermove = event => {
-                const { clientX, clientY } = event;
+        button.onmousedown = () => {
+            move.style.pointerEvents = 'auto';
+            document.body.onpointermove = ({ clientX, clientY }) => {
                 noteTransport = true;
-
-                // Update the position of the note
-                move.style.left = `${clientX-50}px`;
-                move.style.top = `${clientY-50}px`;
+                move.style.left = `${clientX - 50}px`;
+                move.style.top = `${clientY - 50}px`;
             };
-            document.getElementById("note").innerHTML = "<img src='./svgNotes/freepik__background__93616.png' alt='one4th'>";
-            document.getElementById("texto").innerHTML = "needs a dropping space";
-        });
+            move.innerHTML = "<img src='./svgNotes/freepik__background__93616.png' alt='one4th'>";
+            document.getElementById("texto").textContent = "needs a dropping space";
+        };
 
-        document.addEventListener('mouseup', function() {
+        document.onmouseup = () => {
             noteTransport = false;
+            move.innerHTML = "";
+            document.body.onpointermove = null;
+            move.style.left = move.style.top = '-3000px';
+        };
 
-            document.getElementById("note").innerHTML = "";
-            document.body.onpointermove = null; // Stop moving when mouse is released
-            move.style.left = `${-3000}px`; 
-            move.style.top = `${-3000}px`; // Return to initial position
+        const CONFIG = { numButtonPairs: 8, numContainers: 10, buttonTypes: [1, 2] };
+        const enCoded = new Array(CONFIG.numContainers * (CONFIG.numButtonPairs + 1)).fill(3);
+        for (let i = 0; i < enCoded.length; i += 9) enCoded[i] = 4;
 
-        });
-    </script>
-    <script>
-        const trackableObject = document.getElementById('trackableObject');
-        const statusText = document.getElementById('status');
+        function createButtons() {
+            const container = document.getElementById('button-container'), fragment = document.createDocumentFragment();
+            let buttonNumber = 0, arrayIndex = 0;
 
-        // Function to check if the mouse is over the object
-        function isMouseOverObject(mouseX, mouseY) {
-            const rect = trackableObject.getBoundingClientRect();
-            return (
-                mouseX >= rect.left &&
-                mouseX <= rect.right &&
-                mouseY >= rect.top &&
-                mouseY <= rect.bottom
-            );
+            for (let j = 0; j < CONFIG.numContainers; j++) {
+                const buttonDiv = document.createElement('div');
+                buttonDiv.className = 'button-container';
+                arrayIndex++;
+
+                for (let i = 0; i < CONFIG.numButtonPairs; i++) {
+                    for (const doRe of CONFIG.buttonTypes) {
+                        buttonNumber++;
+                        const button = document.createElement('button');
+                        button.textContent = buttonNumber;
+                        button.className = 'dynamic-button';
+                        button.dataset.index = arrayIndex;
+                        button.dataset.value = doRe;
+                        buttonDiv.appendChild(button);
+                    }
+                    arrayIndex++;
+                }
+                fragment.appendChild(buttonDiv);
+            }
+            container.appendChild(fragment);
+            container.onclick = handleButtonClick;
         }
 
-        // Mouse move event listener
-        document.addEventListener('mousemove', (event) => {
-            const { clientX, clientY } = event;
-            const nT = noteTransport;
-
-            if (isMouseOverObject(clientX, clientY)&&noteTransport) {
-                trackableObject.style.backgroundColor = 'lightgreen'; // Change color when mouse is over
-            } else {
-                trackableObject.style.backgroundColor = 'transparent'; // Reset color when mouse is outside
+        function handleButtonClick(event) {
+            const target = event.target;
+            if (target.className === 'dynamic-button') {
+                const index = parseInt(target.dataset.index), value = parseInt(target.dataset.value);
+                if ([value, 3].includes(enCoded[index])) {
+                    enCoded[index] -= value;
+                    updateOutput();
+                }
             }
-        });
-    </script>
+        }
 
-</body>
-</html>
-    </script>
+        function updateOutput() {
+            document.getElementById("output").textContent = enCoded.join(', ');
+        }
 
+        function downloadArrayAsTxt() {
+            const blob = new Blob([enCoded.join('')], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'myMasterpiece.txt';
+            document.body.appendChild(link);
+            link.click();
+            setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(link.href); }, 100);
+        }
+
+        document.getElementById('fileInput').onchange = function(event) {
+            const file = event.target.files[0];
+            if (file && file.type === "text/plain") {
+                const reader = new FileReader();
+                reader.onload = e => document.getElementById('fileContent').textContent = e.target.result;
+                reader.readAsText(file);
+            } else alert("Please upload a valid .txt file.");
+        };
+
+        function init() {
+            createButtons();
+            document.getElementById('downloadBtn').onclick = downloadArrayAsTxt;
+            updateOutput();
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+
+        const trackableObject = document.getElementById('trackableObject');
+        document.onmousemove = ({ clientX, clientY }) => {
+            const isMouseOverObject = (mouseX, mouseY) => {
+                const rect = trackableObject.getBoundingClientRect();
+                return mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom;
+            };
+
+            if (isMouseOverObject(clientX, clientY) && noteTransport) {
+                trackableObject.style.backgroundColor = 'lightgreen';
+                document.querySelectorAll('.dynamic-button').forEach(button => button.style.backgroundColor = 'lightgreen');
+            } else {
+                trackableObject.style.backgroundColor = 'transparent';
+                document.querySelectorAll('.dynamic-button').forEach(button => button.style.backgroundColor = '#06306a');
+            }
+        };
+    </script>
 </body>
 </html>

@@ -37,6 +37,7 @@ body {
   .black {
     width: 40px;
     height: 130px;
+    top: 0;
     background: black;
     position: absolute;
     margin-left: -20px;

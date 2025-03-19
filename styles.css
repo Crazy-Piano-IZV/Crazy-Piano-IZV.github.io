@@ -46,6 +46,9 @@ body {
 
   .black:nth-child(2) { left: 60px; }
   .black:nth-child(4) { left: 180px; }
+  .black:nth-child(7) { left: 300px; }
+  .black:nth-child(9) { left: 420px; } 
+  .black:nth-child(11) { left: 540px; } 
 
   .key:active {
     background: #f3f3f3;

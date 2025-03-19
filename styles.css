@@ -13,7 +13,7 @@ body {
   .piano {
     display: flex;
     justify-content: center;
-    align-items: end;
+    align-items: start;
     padding: 20px;
     background-color: #222;
   }
@@ -37,7 +37,6 @@ body {
   .black {
     width: 40px;
     height: 130px;
-    top: 0;
     background: black;
     position: absolute;
     margin-left: -20px;

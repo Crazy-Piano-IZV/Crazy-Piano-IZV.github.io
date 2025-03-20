@@ -38,6 +38,7 @@ body {
   }
   
   .black {
+    display: flex;
     width: 40px;
     height: 130px;
     background: black;

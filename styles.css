@@ -17,7 +17,7 @@ body {
     padding: 20px;
     background-color: #222;
     position: relative; 
-    height: 220px;
+    
   }
   
   .key {
@@ -42,6 +42,7 @@ body {
     height: 130px;
     background: black;
     position: absolute;
+    margin-left: -20px;
     z-index: 2;
   }
 

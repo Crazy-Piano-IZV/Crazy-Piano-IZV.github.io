@@ -38,7 +38,7 @@ body {
   }
   
   .black {
-    display: flex;
+    justify-content: center;
     width: 40px;
     height: 130px;
     background: black;

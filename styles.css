@@ -16,7 +16,7 @@ body {
     align-items: start;
     padding: 20px;
     background-color: #222;
-    position: relative;
+    
   }
   
   .key {
@@ -33,6 +33,7 @@ body {
     border: 1px solid #ccc;
     margin: 0 -2px;
     z-index: 1;
+    position: relative;
   }
   
   .black {
@@ -40,15 +41,12 @@ body {
     height: 130px;
     background: black;
     position: absolute;
-    margin-left: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
     z-index: 2;
   }
 
-  .black:nth-child(2) { left: 60px; }
-  .black:nth-child(4) { left: 180px; }
-  .black:nth-child(7) { left: 300px; }
-  .black:nth-child(9) { left: 420px; } 
-  .black:nth-child(11) { left: 540px; } 
 
   .key:active {
     background: #f3f3f3;

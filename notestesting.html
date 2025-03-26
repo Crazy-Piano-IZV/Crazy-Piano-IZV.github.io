@@ -1,108 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dis kinda a bop💜</title>
+    <title>piano forte</title>
     <style>
-        #note { position: absolute; pointer-events: none; }
-        #trackableObject { width: 100px; height: 100px; background: transparent; transition: background 0.3s; }
-        .line-container { width: 100%; height: 75px; display: flex; flex-direction: column; justify-content: space-between; }
-        .line { height: 2px; background: black; width: 100%; }
-        #button-container { display: flex; flex-wrap: wrap; gap: 10px; }
-        .button-container { display: flex; flex-direction: column; gap: 5px; margin: 10px; }
-        .dynamic-button, .download-btn { padding: 10px 20px; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        .dynamic-button { background: #06306a; transition: background 0.3s; width: 7px; height: 5px; background-color: lightblue; border-radius: 50%; }
-        .dynamic-button:hover { background: #052755; }
-        .download-btn { background: #28a745; margin: 20px; }
-        .download-btn:hover { background: #218838; }
-        .output { margin: 10px 20px; font-family: monospace; }
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        button,
+        input {
+            width: 100px;
+            height: 50px;
+        }
+
+        #theCoolAwesomeDiv {
+            overflow-y: auto;
+            border-radius: 25px;
+            border: 2px solid #89b34e;
+            width: 80vw; /* Consider using px or % for better compatibility */
+            height: 32dvh; /* Consider using px or % for better compatibility */
+            margin: 20px auto;
+            padding: 10px; /* Added padding for better spacing */
+        }
+
+        #theUnlovedAwfullDiv {
+            /*temporary parent*/
+            margin-bottom: 20px;
+        }
+
+        p {
+            /* temporary styling */
+            text-wrap: wrap;
+        }
+
+        .line-container {
+            width: 100%; /* Full width of the parent */
+            height: 16dvh; /* Full height of the parent */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Evenly space the lines */
+        }
+
+        .line {
+            height: 2px; /* Height of each line */
+            background: black; /* Color of the lines */
+            margin: 0; /* Remove any default margin */
+        }
     </style>
 </head>
+
 <body>
-    <button id="spawnButton">Spawn a note</button>
-    <div id="trackableObject"></div>
-    <p id="texto"></p>
-    <div id="note"></div>
-    <div class="line-container">
-        <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+    <div id="theCoolAwesomeDiv">
+        <div class="line-container"> 
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
     </div>
-    <div id="button-container"></div>
-    <p id="output" class="output"></p>
-    <button id="downloadBtn" class="download-btn">Download Array</button>
-    <input type="file" id="fileInput" accept=".txt">
-    <pre id="fileContent"></pre>
-    
+    <div id="theUnlovedAwfullDiv">
+        <p id="melodyEncoded"></p>
+        <button onclick="downloadArray();">Download it</button>
+        <input type="file" id="fileInput" accept=".txt">
+        <button onclick="uploadArray()">Load Selected File</button>
+    </div>
+
     <script>
-        const button = document.getElementById("spawnButton"), move = document.getElementById("note");
-        let noteTransport = false;
+        var fileReader = new FileReader();
 
-        button.onmousedown = () => {
-            move.style.pointerEvents = 'auto';
-            document.body.onpointermove = ({ clientX, clientY }) => {
-                noteTransport = true;
-                move.style.left = `${clientX - 50}px`;
-                move.style.top = `${clientY - 50}px`;
-            };
-            move.innerHTML = "<img src='./svgNotes/freepik__background__93616.png' alt='one4th'>";
-            document.getElementById("texto").textContent = "needs a dropping space";
-        };
+        var melodyEncoded = [];
+        const cells = 10;
 
-        document.onmouseup = () => {
-            noteTransport = false;
-            move.innerHTML = "";
-            document.body.onpointermove = null;
-            move.style.left = move.style.top = '-3000px';
-        };
-
-        const CONFIG = { numButtonPairs: 8, numContainers: 10, buttonTypes: [1, 2] };
-        const enCoded = new Array(CONFIG.numContainers * (CONFIG.numButtonPairs + 1)).fill(3);
-        for (let i = 0; i < enCoded.length; i += 9) enCoded[i] = 4;
-
-        function createButtons() {
-            const container = document.getElementById('button-container'), fragment = document.createDocumentFragment();
-            let buttonNumber = 0, arrayIndex = 0;
-
-            for (let j = 0; j < CONFIG.numContainers; j++) {
-                const buttonDiv = document.createElement('div');
-                buttonDiv.className = 'button-container';
-                arrayIndex++;
-
-                for (let i = 0; i < CONFIG.numButtonPairs; i++) {
-                    for (const doRe of CONFIG.buttonTypes) {
-                        buttonNumber++;
-                        const button = document.createElement('button');
-                        button.textContent = buttonNumber;
-                        button.className = 'dynamic-button';
-                        button.dataset.index = arrayIndex;
-                        button.dataset.value = doRe;
-                        buttonDiv.appendChild(button);
-                    }
-                    arrayIndex++;
-                }
-                fragment.appendChild(buttonDiv);
-            }
-            container.appendChild(fragment);
-            container.onclick = handleButtonClick;
-        }
-
-        function handleButtonClick(event) {
-            const target = event.target;
-            if (target.className === 'dynamic-button') {
-                const index = parseInt(target.dataset.index), value = parseInt(target.dataset.value);
-                if ([value, 3].includes(enCoded[index])) {
-                    enCoded[index] -= value;
-                    updateOutput();
-                }
+        // Creating starting array
+        for (var i = 0; i <= cells; i++) {
+            melodyEncoded = melodyEncoded.concat(50);
+            for (var j = 0; j <= 5; j++) {
+                melodyEncoded = melodyEncoded.concat(10);
             }
         }
 
-        function updateOutput() {
-            document.getElementById("output").textContent = enCoded.join(', ');
-        }
+        // Temporary output
+        document.getElementById('melodyEncoded').innerHTML = melodyEncoded; 
 
-        function downloadArrayAsTxt() {
-            const blob = new Blob([enCoded.join('')], { type: 'text/plain' });
+        // Downloading the array
+        function downloadArray() {
+            const blob = new Blob([melodyEncoded.join('')], { type: 'text/plain' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = 'myMasterpiece.txt';
@@ -111,38 +101,28 @@
             setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(link.href); }, 100);
         }
 
-        document.getElementById('fileInput').onchange = function(event) {
-            const file = event.target.files[0];
-            if (file && file.type === "text/plain") {
-                const reader = new FileReader();
-                reader.onload = e => document.getElementById('fileContent').textContent = e.target.result;
-                reader.readAsText(file);
-            } else alert("Please upload a valid .txt file.");
-        };
+        // Uploading the array
+        function uploadArray() {
+            var fileToLoad = document.getElementById("fileInput").files[0];
 
-        function init() {
-            createButtons();
-            document.getElementById('downloadBtn').onclick = downloadArrayAsTxt;
-            updateOutput();
-        }
+            if (!fileToLoad) {
+                alert("Please select a file first.");
+                return;
+            }
 
-        document.addEventListener('DOMContentLoaded', init);
-
-        const trackableObject = document.getElementById('trackableObject');
-        document.onmousemove = ({ clientX, clientY }) => {
-            const isMouseOverObject = (mouseX, mouseY) => {
-                const rect = trackableObject.getBoundingClientRect();
-                return mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom;
+            fileReader.onload = function (fileLoadedEvent) {
+                var textFromFileLoaded = fileLoadedEvent.target.result;
+                //updating 
+                melodyEncoded = [];
+                for (let i = 0; i < textFromFileLoaded.length; i += 2) {
+                    melodyEncoded.push(textFromFileLoaded.substring(i, i + 2));
+                }
+                document.getElementById("melodyEncoded").innerHTML = melodyEncoded;
             };
 
-            if (isMouseOverObject(clientX, clientY) && noteTransport) {
-                trackableObject.style.backgroundColor = 'lightgreen';
-                document.querySelectorAll('.dynamic-button').forEach(button => button.style.backgroundColor = 'lightgreen');
-            } else {
-                trackableObject.style.backgroundColor = 'transparent';
-                document.querySelectorAll('.dynamic-button').forEach(button => button.style.backgroundColor = '#06306a');
-            }
-        };
+            fileReader.readAsText(fileToLoad);
+        }
     </script>
 </body>
+
 </html>

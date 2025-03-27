@@ -48,10 +48,10 @@ body {
   }
 
 .black:nth-child(2) { left: 595px; }
-.black:nth-child(4) { left: 105px; } 
-.black:nth-child(7) { left: 225px; } 
-.black:nth-child(9) { left: 285px; } 
-.black:nth-child(11) { left: 345px; } 
+.black:nth-child(4) { left: 655px; } 
+.black:nth-child(7) { left: 775px; } 
+.black:nth-child(9) { left: 835px; } 
+.black:nth-child(11) { left: 895px; } 
 
   .key:active {
     background: #f3f3f3;

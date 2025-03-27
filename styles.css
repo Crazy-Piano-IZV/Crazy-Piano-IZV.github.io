@@ -47,7 +47,7 @@ body {
     z-index: 2;
   }
 
-.black:nth-child(2) { left: 645px; }
+.black:nth-child(2) { left: 545px; }
 .black:nth-child(4) { left: 105px; } 
 .black:nth-child(7) { left: 225px; } 
 .black:nth-child(9) { left: 285px; } 

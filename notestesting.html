@@ -24,10 +24,13 @@
             overflow-y: auto;
             border-radius: 25px;
             border: 2px solid #89b34e;
-            width: 80vw; /* Consider using px or % for better compatibility */
-            height: 32dvh; /* Consider using px or % for better compatibility */
+            width: 80vw;
+            /* Consider using px or % for better compatibility */
+            height: 32dvh;
+            /* Consider using px or % for better compatibility */
             margin: 20px auto;
-            padding: 10px; /* Added padding for better spacing */
+            padding: 10px;
+            /* Added padding for better spacing */
         }
 
         #theUnlovedAwfullDiv {
@@ -41,24 +44,61 @@
         }
 
         .line-container {
-            width: 100%; /* Full width of the parent */
-            height: 16dvh; /* Full height of the parent */
+            width: 100%;
+            /* Full width of the parent */
+            height: 16dvh;
+            /* Full height of the parent */
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Evenly space the lines */
+            justify-content: space-between;
+            margin-bottom: 50px;
+            /* Evenly space the lines */
         }
 
         .line {
-            height: 2px; /* Height of each line */
-            background: black; /* Color of the lines */
-            margin: 0; /* Remove any default margin */
+            height: 2px;
+            /* Height of each line */
+            background: black;
+            /* Color of the lines */
+            margin: 0;
+            /* Remove any default margin */
+        }
+
+        .reaction-base-container {
+            position: absolute;
+            width: 80vw;
+            /* Full width of the parent */
+            height: 16dvh;
+            /* Full height of the parent */
+            display: flex;
+            flex-direction: row;
+        }
+
+        .reaction-base-type1 {
+            width: 9%;
+            height: 100%;
+            background: darkmagenta;
+            opacity: 0.25;
+        }
+
+        .reaction-base-type2 {
+            width: 2%;
+            height: 100%;
+            background: darkgreen;
+            opacity: 0.25;
         }
     </style>
 </head>
 
 <body>
     <div id="theCoolAwesomeDiv">
-        <div class="line-container"> 
+        <!--reacting part-->
+        <div class="reaction-base-container">
+            <div class="reaction-base-type1" id=base1 onclick="reactToClick(event, this)"></div>
+            <div class="reaction-base-type2"></div>
+        </div>
+        <!--visual part-->
+        <div class="line-container">
             <div class="line"></div>
             <div class="line"></div>
             <div class="line"></div>
@@ -87,8 +127,18 @@
             }
         }
 
+        //Handling reaction base being clicked
+        function reactToClick(event, baseInQuestion) {
+            const height = baseInQuestion.clientHeight;
+            const clickY = event.clientY - baseInQuestion.getBoundingClientRect().top;
+            const noteChanger = parseInt((clickY / height) * 16);
+            console.log(height, clickY, noteChanger);
+            melodyEncoded[1] += (noteChanger * 3 - 1);
+            document.getElementById('melodyEncoded').innerHTML = melodyEncoded;// temporary output
+        }
+
         // Temporary output
-        document.getElementById('melodyEncoded').innerHTML = melodyEncoded; 
+        document.getElementById('melodyEncoded').innerHTML = melodyEncoded;
 
         // Downloading the array
         function downloadArray() {

@@ -64,10 +64,27 @@ function processAudio(buffer) {
 function detectNotes() {
   const dataArray = new Uint8Array(analyser.frequencyBinCount);
   analyser.getByteFrequencyData(dataArray);
+  document.getElementById("detectedNote").textContent = `Detected Note: ${closestNote}`;
+
   
   const detectedFreq = getDominantFrequency(dataArray);
   const closestNote = findClosestNote(detectedFreq);
   highlightKey(closestNote);
+}
+let lastNote = "";
+let lastNoteTime = 0;
+
+function highlightKey(note) {
+  const now = Date.now();
+  
+  if (note !== lastNote || now - lastNoteTime > 500) { // Update every 500ms
+    document.querySelectorAll('.key').forEach(key => key.classList.remove('active'));
+    const key = document.querySelector(`.key[data-note="${note}"]`);
+    if (key) key.classList.add('active');
+
+    lastNote = note;
+    lastNoteTime = now;
+  }
 }
 
 function getDominantFrequency(dataArray) {

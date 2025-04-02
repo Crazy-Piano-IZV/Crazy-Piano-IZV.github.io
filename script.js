@@ -18,7 +18,7 @@ const noteFrequencies = {
   'C2': 523.25
 };
 
-// 🎵 Handle file upload and process audio
+// Handle file upload and process audio
 function handleFileUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
@@ -36,7 +36,7 @@ function handleFileUpload(event) {
 
 document.getElementById('fileInput').addEventListener('change', handleFileUpload);
 
-// 🎶 Process uploaded audio
+//  Process uploaded audio
 function processAudio(buffer) {
   source = audioContext.createBufferSource();
   analyser = audioContext.createAnalyser();
@@ -49,7 +49,7 @@ function processAudio(buffer) {
   detectNotes();
 }
 
-// 🎹 Detect and highlight notes
+//  Detect and highlight notes
 function detectNotes() {
   const dataArray = new Uint8Array(analyser.frequencyBinCount);
   analyser.getByteFrequencyData(dataArray);
@@ -61,7 +61,7 @@ function detectNotes() {
   highlightKey(closestNote);
 }
 
-// 🔍 Find the dominant frequency in the audio
+// Find the dominant frequency in the audio
 function getDominantFrequency(dataArray) {
   let maxIndex = 0;
   let maxValue = -Infinity;
@@ -83,14 +83,14 @@ function findClosestNote(freq) {
   });
 }
 
-// 🔥 Highlight the detected note on the piano
+// Highlight the detected note on the piano
 function highlightKey(note) {
   document.querySelectorAll('.key').forEach(key => key.classList.remove('active'));
   const key = document.querySelector(`.key[data-note="${note}"]`);
   if (key) key.classList.add('active');
 }
 
-// 🎹 Handle piano key clicks (Play MP3)
+// Handle piano key clicks (Play MP3)
 document.querySelectorAll('.key').forEach(key => {
   key.addEventListener('mousedown', () => {
     const note = key.dataset.note;
@@ -99,15 +99,7 @@ document.querySelectorAll('.key').forEach(key => {
   });
 });
 
-/*
-// 🎵 Play sound (Option 1: MP3 files)
-function playSound(note) {
-  const audio = new Audio(`sounds/${note}.mp3`);
-  audio.play();
-}
-*/
-
-// 🎶 Play generated sound using an oscillator (Option 2: Pure JS Sound)
+// Play generated sound using an oscillator (Option 2: Pure JS Sound)
 function playGeneratedSound(note) {
   const frequency = noteFrequencies[note];
   if (!frequency) return;
@@ -117,7 +109,7 @@ function playGeneratedSound(note) {
   oscillator.type = "sine"; // Can use "square", "sawtooth", "triangle"
 
   const gainNode = audioContext.createGain();
-  gainNode.gain.value = 0.1; // Volume control
+  gainNode.gain.value = 2; // Volume control
 
   oscillator.connect(gainNode);
   gainNode.connect(audioContext.destination);
@@ -126,7 +118,7 @@ function playGeneratedSound(note) {
   oscillator.stop(audioContext.currentTime + 0.5); // Stop after 0.5 sec
 }
 
-// 🔊 Unlock audio context on user interaction
+// Unlock audio context on user interaction
 document.body.addEventListener("click", () => {
   if (audioContext.state === "suspended") {
     audioContext.resume();

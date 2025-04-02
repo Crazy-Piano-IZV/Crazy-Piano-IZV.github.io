@@ -26,6 +26,7 @@ body {
     border: 1px solid #000;
     cursor: pointer;
     user-select: none;
+    display: inline-block;
   }
   
   .white {

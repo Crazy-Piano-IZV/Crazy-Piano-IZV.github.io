@@ -51,9 +51,5 @@ function playAudio() {
     source.playbackRate.value = playbackRate; // Set the playback rate
 
     source.start(0); // Start playback
-    visualize(); // Start visualizing the audio
+    
 }
-
-// Visualize the audio frequencies
-function visualize() {
-   

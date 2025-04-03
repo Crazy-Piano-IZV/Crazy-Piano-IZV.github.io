@@ -5,8 +5,15 @@ let analyserNode; // Variable to analyze the audio frequencies
 
 // Set up event listeners for file input and play button
 document.getElementById('fileInput').addEventListener('change', handleFileUpload); // Handle file upload
-document.getElementById('playButton').addEventListener('click', playAudio); // Handle play button click
 
+// Add event listeners to piano keys
+document.querySelectorAll('.key').forEach(key => {
+    key.addEventListener('mousedown', () => {
+        const note = key.dataset.note; // Get the note from the data attribute
+        playAudio(note); // Play the audio for the corresponding note
+        highlightKey(key); // Highlight the key
+    });
+});
 // Handle file upload
 function handleFileUpload(event) {
     const file = event.target.files[0]; // Get the uploaded file
@@ -40,6 +47,14 @@ function playAudio() {
     // Connect the source to the analyser and then to the destination
     source.connect(analyserNode); // Connect to the analyser node
     analyserNode.connect(audioContext.destination); // Connect to the audio context destination (speakers)
+
+
+    // Set playback rate based on the note
+    const noteFrequencies = {
+        'C': 261.63, 'C#': 277.18, 'D': 293.66, 'D#': 311.13, 'E': 329.63,
+        'F': 349.23, 'F#': 369.99, 'G': 392.00, 'G#': 415.30, 'A': 440.00,
+        'A#': 466.16, 'B': 493.88, 'C2': 523.25
+    };
 
     // Detect frequency and adjust playback rate
     const frequencyData = new Uint8Array(analyserNode.frequencyBinCount); // Create an array to hold frequency data

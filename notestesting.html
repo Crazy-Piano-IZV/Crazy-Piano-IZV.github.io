@@ -22,28 +22,38 @@
 
         #theCoolAwesomeDiv {
             overflow-y: auto;
+            overflow-x: hidden;
             position: absolute;
-            border: 2px solid #89b34e;
-            left:10dvw;
-            top:10dvh;
+            left: 10dvw;
+            top: 10dvh;
             /*sizee*/
             width: 80dvw;
             height: 50dvh;
+            flex-wrap: wrap
         }
 
         #theUnlovedAwfullDiv {
             /*temporary parent*/
             position: absolute;
-            bottom:10px;
+            bottom: 10px;
+        }
+
+        #notechoice-base-itnocg {
+            position: fixed;
+            background: #89b34e;
+            height: 60px;
+            width: 100%;
         }
 
         p {
             /* temporary styling */
+            width: 50%;
             text-wrap: wrap;
         }
 
         .line-container {
-            width: 100%;
+            width: 98%;
+            align-self: center;
             box-sizing: border-box;
             /* Full width of the parent */
             height: 17.6dvh;
@@ -68,124 +78,300 @@
         .line-tp {
             height: 0.2dvh;
             /* Height of each line */
-            background: pink;
+            background: transparent;
             /* Color of the lines */
             margin: 0;
         }
 
-        .reaction-base-container {
+        #reaction-base-container {
             position: absolute;
-            width: 80vw;
+            width: 80dvw;
             /* Full width of the parent */
             height: 17.6dvh;
             /* Full height of the parent */
             display: flex;
             flex-direction: row;
+            flex-wrap: wrap;
             top: 0;
         }
 
         .reaction-base-type1 {
-            width: 9%;
+            width: 8.5%;
             height: 17.6dvh;
             background: darkmagenta;
             opacity: 0.25;
+            padding: 0 0 10vdh;
+            z-index: 10;
         }
 
         .reaction-base-type2 {
-            width: 2%;
+            width: 1%;
             height: 17.6dvh;
-            background: darkgreen;
+            background: transparent;
             opacity: 0.25;
+            padding: 0 0 10vdh;
+            z-index: 10;
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 0, 0, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            display: none;
+            z-index: 100;
         }
     </style>
 </head>
 
-<body>
-    <div id="theCoolAwesomeDiv">
-        <!--reacting part-->
-        <div class="reaction-base-container">
-            <div class="reaction-base-type1" id=base1 onclick="reactToClick(event, this)"></div>
-            <div class="reaction-base-type2"></div>
+<body onload="welcomeFunction()"> <!--onload stuff-->>
+        <!--additional buttons-->
+        <div id="notechoice-base-itnocg">
+            <button type="button" onclick="noteBascket(1)">full note</button>
+            <button type="button" onclick="noteBascket(2)">1/2 note</button>
+            <button type="button" onclick="noteBascket(3)">1/4 note</button>
+            <button type="button" onclick="noteBascket(4)">1/8</button>
+            <button type="button" onclick="noteBascket(5)">1/16 note</button>
+            <button type="button" onclick="noteBascket(6)">1/2 pause</button>
+            <button type="button" onclick="noteBascket(7)">1/4 pause</button>
+            <button type="button" onclick="noteBascket(8)">1/8 note</button>
+            <button type="button" onclick="noteBascket(9)">1/16</button>
+            <button type="button" onclick="noteBascket('d')">diez</button>
+            <button type="button" onclick="noteBascket('b')">bemol</button>
         </div>
-        <!--visual part-->
-        <div class="line-container">
-            <div class="line-tp"></div>
-            <div class="line-tp"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line-tp"></div>
+        <div id="theUnlovedAwfullDiv">
+            <p id="melodyEncoded"></p>
+            <button onclick="downloadArray();">Download it</button>
+            <input type="file" id="fileInput" accept=".txt">
+            <button onclick="uploadArray()">Load Selected File</button>
         </div>
-    </div>
-    <div id="theUnlovedAwfullDiv">
-        <p id="melodyEncoded"></p>
-        <button onclick="downloadArray();">Download it</button>
-        <input type="file" id="fileInput" accept=".txt">
-        <button onclick="uploadArray()">Load Selected File</button>
-    </div>
 
-    <script>
-        var fileReader = new FileReader();
+        <div id="theCoolAwesomeDiv">
 
-        var melodyEncoded = [];
-        const cells = 10;
+            <!--reacting part-->
+            <div id="reaction-base-container">
+                <div class="reaction-base-type2" id=b0></div>
+                <div class="reaction-base-type1" id=base1 onclick="reactToClick(event, this, 1)"></div>
+                <div class="reaction-base-type2" id=b1></div>
+            </div>
 
-        // Creating starting array
-        for (var i = 0; i <= cells; i++) {
-            melodyEncoded = melodyEncoded.concat(50);
-            for (var j = 0; j <= 5; j++) {
-                melodyEncoded = melodyEncoded.concat(10);
-            }
-        }
+            <!--visual part-->
+            <div class="line-container">
+                <div class="line-tp"></div>
+                <div class="line-tp"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line-tp"></div>
+            </div>
+        </div>
 
-        //Handling reaction base being clicked
-        function reactToClick(event, baseInQuestion) {
-            const height = baseInQuestion.clientHeight;
-            const clickY = event.clientY - baseInQuestion.getBoundingClientRect().top;
-            const noteChanger = parseInt((clickY / height) * 16);
-            console.log(height, clickY, noteChanger);
-            melodyEncoded[1] += (noteChanger * 3 - 1);
-            document.getElementById('melodyEncoded').innerHTML = melodyEncoded;// temporary output
-        }
+        <!--Follower-->
+        <div class="cursor-follower"></div>
 
-        // Temporary output
-        document.getElementById('melodyEncoded').innerHTML = melodyEncoded;
-
-        // Downloading the array
-        function downloadArray() {
-            const blob = new Blob([melodyEncoded.join('')], { type: 'text/plain' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'myMasterpiece.txt';
-            document.body.appendChild(link);
-            link.click();
-            setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(link.href); }, 100);
-        }
-
-        // Uploading the array
-        function uploadArray() {
-            var fileToLoad = document.getElementById("fileInput").files[0];
-
-            if (!fileToLoad) {
-                alert("Please select a file first.");
-                return;
+        <script>
+            //onload stuff
+            function welcomeFunction() {
+                console.log("Reset");
+                follower('.reaction-base-type1');
             }
 
-            fileReader.onload = function (fileLoadedEvent) {
-                var textFromFileLoaded = fileLoadedEvent.target.result;
-                //updating 
-                melodyEncoded = [];
-                for (let i = 0; i < textFromFileLoaded.length; i += 2) {
-                    melodyEncoded.push(textFromFileLoaded.substring(i, i + 2));
+
+            var fileReader = new FileReader();
+
+            var melodyEncoded = [];
+            var cells = 1;
+            const maxCells = 500;
+
+            var noteLength;
+            var leftMouseClicked = false;
+
+            
+            // Creating starting array
+            for (var i = 0; i < cells; i++) {
+                melodyEncoded = melodyEncoded.concat(40);
+                for (var j = 0; j < 5; j++) {
+                    melodyEncoded = melodyEncoded.concat(10);
                 }
-                document.getElementById("melodyEncoded").innerHTML = melodyEncoded;
-            };
+            }
 
-            fileReader.readAsText(fileToLoad);
+            //Activating the note
+            function noteBascket(setNL) {
+                noteLength = setNL;
+                console.log(setNL, noteLength);
+            }
+            function reactToClick(event, baseInQuestion, n) {
+
+                // locating stuff
+                const height = baseInQuestion.clientHeight;
+                const clickY = event.clientY - baseInQuestion.getBoundingClientRect().top;
+                const noteChanger = parseInt(16 * (1 - (clickY / height)));
+                const Coef = (n - 1) * 6;
+                console.log(height, clickY, noteChanger);
+
+                // handling all outcomes
+                switch (event.button) {
+
+                    // adding a note
+                    case 0:
+                        console.log("Left mouse button clicked.");
+                        if (melodyEncoded[Coef] % 10 < 5) { //check note count
+                            for (let c = 1; c <= 5; c++) {
+                                if (melodyEncoded[Coef + c] == 10) {
+                                    melodyEncoded[Coef + c] += ((noteChanger + 1) * 3);
+                                    melodyEncoded[Coef]++;
+                                    document.getElementById('melodyEncoded').innerHTML = melodyEncoded;// temporary output
+
+                                    break;
+                                } else if (melodyEncoded[Coef + c] == 10 + ((noteChanger + 1) * 3)) {
+                                    alert("note present already");
+                                    break;
+                                } else { console.log("skippin"); }
+                            }
+                            if (melodyEncoded[Coef] % 10 == 1) { arrayCellsFixer(n); }
+                        } else { alert("note maximum reached!") }
+                        break;
+
+                    // removing a note
+                    default:
+                        console.log("Right mouse button (or any other) clicked.");
+                        break;
+                        melodyEncoded[1] = 10;
+                        document.getElementById('melodyEncoded').innerHTML = melodyEncoded;// temporary output
+                }
+            }
+
+            // adding a note cell
+            function arrayCellsFixer(idd) {
+                const container = document.getElementById('reaction-base-container');
+                const b = document.createElement('div');
+                const c = document.createElement('div');
+                cells++;
+                const n = cells;
+
+                b.className = 'reaction-base-type1';
+                b.id = 'base' + cells;
+                b.onclick = function (event) {
+                    reactToClick(event, this, n);
+                    console.log(event, this, n);
+                };
+
+                c.className = 'reaction-base-type2';
+                c.id = 'b' + cells;
+                c.onclick = () => {
+                    arrayCellsFixer(n);
+                };
+
+                console.log(cells);
+                if (cells % 10 == 1) {
+                    const a = document.createElement('div');
+                    const aa = document.createElement('div');
+                    const aatp = document.createElement('div');
+                    a.className = 'line-container';
+                    aa.className = 'line';
+                    aatp.className = 'line-tp';
+
+                    const vcontainer = document.getElementById('theCoolAwesomeDiv');
+                    console.log('func opened');
+
+
+                    a.id = 'lines' + (cells)
+                    for (let i = 0; i < 2; i++) {
+                        const newAatp = document.createElement('div');
+                        newAatp.className = 'line-tp'; // Set class for the new element
+                        a.appendChild(newAatp);
+                    }
+
+                    // Append the aa element five times
+                    for (let i = 0; i < 5; i++) {
+                        const newAa = document.createElement('div');
+                        newAa.className = 'line'; // Set class for the new element
+                        a.appendChild(newAa);
+                    }
+
+                    const newAatp = document.createElement('div');
+                    newAatp.className = 'line-tp'; // Set class for the new element
+                    a.appendChild(newAatp);
+
+                    vcontainer.appendChild(a); // Append the actual element
+                }
+
+                container.appendChild(b);
+                container.appendChild(c);
+                follower('.reaction-base-type1');// updating follower
+                melodyEncoded = melodyEncoded.concat(40, 10, 10, 10, 10, 10);
+                document.getElementById('melodyEncoded').innerHTML = melodyEncoded;
+            }
+            
+            // Temporary output
+            document.getElementById('melodyEncoded').innerHTML = melodyEncoded;
+
+            // !!!!Following the mouse
+            function follower(selector){
+            const follower = document.querySelector('.cursor-follower');
+            const targetContainers = document.querySelectorAll(selector);
+            document.addEventListener('mousemove', (e) => {
+                // Update follower position
+                follower.style.left = `${e.clientX}px`;
+                follower.style.top = `${e.clientY}px`;
+
+                // Check if mouse is inside any target container
+                let isInsideTarget = false;
+                targetContainers.forEach(container => {
+                    const rect = container.getBoundingClientRect();
+                    if (
+                        e.clientX >= rect.left &&
+                        e.clientX <= rect.right &&
+                        e.clientY >= rect.top &&
+                        e.clientY <= rect.bottom
+                    ) {
+                        isInsideTarget = true;
+                    }
+                });
+
+                follower.style.display = isInsideTarget ? 'block' : 'none'; // Toggle visibility based on container check
+            });
         }
-    </script>
-</body>
 
+            // Downloading the array
+            function downloadArray() {
+                const blob = new Blob([melodyEncoded.join('')], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'myMasterpiece.txt';
+                document.body.appendChild(link);
+                link.click();
+                setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(link.href); }, 100);
+            }
+
+            // Uploading the array
+            function uploadArray() {
+                var fileToLoad = document.getElementById("fileInput").files[0];
+
+                if (!fileToLoad) {
+                    alert("Please select a file first.");
+                    return;
+                }
+
+                fileReader.onload = function (fileLoadedEvent) {
+                    var textFromFileLoaded = fileLoadedEvent.target.result;
+                    //updating 
+                    melodyEncoded = [];
+                    for (let i = 0; i < textFromFileLoaded.length; i += 2) {
+                        melodyEncoded.push(textFromFileLoaded.substring(i, i + 2));
+                    }
+                    document.getElementById("melodyEncoded").innerHTML = melodyEncoded;
+                };
+
+                fileReader.readAsText(fileToLoad);
+            }
+        </script>
+    </body>
+
+</html>
 </html>

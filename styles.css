@@ -44,15 +44,9 @@ body {
     height: 130px;
     background: black;
     position: absolute;
-    margin-left: -20px;
+    margin-left: 4%;
     z-index: 2;
   }
-
-.black:nth-child(2) { left: 395px; }
-.black:nth-child(4) { left: 655px; } 
-.black:nth-child(7) { left: 775px; } 
-.black:nth-child(9) { left: 835px; } 
-.black:nth-child(11) { left: 895px; } 
 
   .key:active {
     background: #f3f3f3;

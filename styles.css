@@ -34,7 +34,7 @@ body {
     background: white;
     border: 1px solid #ccc;
     margin: 0 -21px;
-    z-index: 1;
+    z-index: 2;
     position: relative;
   }
   
@@ -44,7 +44,7 @@ body {
     height: 130px;
     background: black;
     position: relative;
-    z-index: 2;
+    z-index: 3;
   }
  .empty {
     justify-content: center;
@@ -52,7 +52,7 @@ body {
     height: 130px;
     visibility: hidden;
     position: relative;
-    z-index: 2;
+    z-index: 1;
   }
   .key:active {
     background: #f3f3f3;

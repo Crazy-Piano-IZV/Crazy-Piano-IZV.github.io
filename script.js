@@ -5,7 +5,7 @@ let analyserNode; // Variable to analyze the audio frequencies
 
 // Note frequencies for a standard piano
 const noteFrequencies = {
-    'C3': 130.81, 'C#3': 138.59, 'D3': 146.83, 'D#3': 155.56, 'E5': 164.81,
+    'C3': 130.81, 'C#3': 138.59, 'D3': 146.83, 'D#3': 155.56, 'E3': 164.81,
     'F3': 174.61, 'F#3': 185, 'G3': 196, 'G#3': 207.65, 'A3': 220 ,
     'A#3': 233.08, 'B3': 246.94,
     'C4': 261.63, 'C#4': 277.18, 'D4': 293.66, 'D#4': 311.13, 'E4': 329.63,

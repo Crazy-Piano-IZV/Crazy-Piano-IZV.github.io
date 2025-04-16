@@ -20,15 +20,24 @@
             height: 50px;
         }
 
+        .one-4 {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: rgb(0, 0, 0);
+            border-radius: 50%;
+            z-index: 101;
+        }
+
         #theCoolAwesomeDiv {
             overflow-y: auto;
             overflow-x: hidden;
             position: absolute;
-            left: 10dvw;
-            top: 10dvh;
+            left: 10vw;
+            top: 10svh;
             /*sizee*/
-            width: 80dvw;
-            height: 50dvh;
+            width: 80vw;
+            height: 50vh;
             flex-wrap: wrap
         }
 
@@ -47,27 +56,27 @@
 
         p {
             /* temporary styling */
+            color: navy;
             width: 50%;
             text-wrap: wrap;
         }
 
         .line-container {
             width: 98%;
+            position: relative;
             align-self: center;
             box-sizing: border-box;
-            /* Full width of the parent */
-            height: 17.6dvh;
-            /* Full height of the parent */
+            height: 17.6vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             /* Evenly space the lines */
-            padding: 0.5dvh 0 1.5dvh;
-            position: relative;
+            padding: 0.5vh 0 1.5vh;
+            margin-bottom: 1.1vh;
         }
 
         .line {
-            height: 0.2dvh;
+            height: 0.2vh;
             /* Height of each line */
             background: black;
             /* Color of the lines */
@@ -76,18 +85,18 @@
         }
 
         .line-tp {
-            height: 0.2dvh;
+            height: 0.2vh;
             /* Height of each line */
-            background: transparent;
+            background: pink;
             /* Color of the lines */
             margin: 0;
         }
 
         #reaction-base-container {
             position: absolute;
-            width: 80dvw;
+            width: 80vw;
             /* Full width of the parent */
-            height: 17.6dvh;
+            height: 17.6vh;
             /* Full height of the parent */
             display: flex;
             flex-direction: row;
@@ -96,21 +105,27 @@
         }
 
         .reaction-base-type1 {
+            position: relative;
             width: 8.5%;
-            height: 17.6dvh;
+            height: 17.6vh;
             background: darkmagenta;
             opacity: 0.25;
-            padding: 0 0 10vdh;
+            padding: 0 0 0vh;
+            /*change to bigger num*/
             z-index: 10;
+            margin-bottom: 1.1vh;
         }
 
         .reaction-base-type2 {
+            position: relative;
             width: 1%;
-            height: 17.6dvh;
+            height: 17.6vh;
             background: transparent;
             opacity: 0.25;
-            padding: 0 0 10vdh;
+            padding: 0 0 0vh;
+            /*change to bigger num*/
             z-index: 10;
+            margin-bottom: 1.1vh;
         }
 
         .cursor-follower {
@@ -128,202 +143,231 @@
 </head>
 
 <body onload="welcomeFunction()"> <!--onload stuff-->>
-        <!--additional buttons-->
-        <div id="notechoice-base-itnocg">
-            <button type="button" onclick="noteBascket(1)">full note</button>
-            <button type="button" onclick="noteBascket(2)">1/2 note</button>
-            <button type="button" onclick="noteBascket(3)">1/4 note</button>
-            <button type="button" onclick="noteBascket(4)">1/8</button>
-            <button type="button" onclick="noteBascket(5)">1/16 note</button>
-            <button type="button" onclick="noteBascket(6)">1/2 pause</button>
-            <button type="button" onclick="noteBascket(7)">1/4 pause</button>
-            <button type="button" onclick="noteBascket(8)">1/8 note</button>
-            <button type="button" onclick="noteBascket(9)">1/16</button>
-            <button type="button" onclick="noteBascket('d')">#</button>
-            <button type="button" onclick="noteBascket('b')">b</button>
-        </div>
-        <div id="theUnlovedAwfullDiv">
-            <p id="melodyEncoded"></p>
-            <button onclick="downloadArray();">Download it</button>
-            <input type="file" id="fileInput" accept=".txt">
-            <button onclick="uploadArray()">Load Selected File</button>
-        </div>
+    <!--additional buttons-->
+    <div id="notechoice-base-itnocg">
+        <button type="button" onclick="noteBascket(1)">full note</button>
+        <button type="button" onclick="noteBascket(2)">1/2 note</button>
+        <button type="button" onclick="noteBascket(3)">1/4 note</button>
+        <button type="button" onclick="noteBascket(4)">1/8</button>
+        <button type="button" onclick="noteBascket(5)">1/16 note</button>
+        <button type="button" onclick="noteBascket(6)">1/2 pause</button>
+        <button type="button" onclick="noteBascket(7)">1/4 pause</button>
+        <button type="button" onclick="noteBascket(8)">1/8 note</button>
+        <button type="button" onclick="noteBascket(9)">1/16</button>
+        <button type="button" onclick="noteBascket('d')">diez</button>
+        <button type="button" onclick="noteBascket('b')">bemol</button>
+        <button type="button" onclick="play()">play</button>
+    </div>
+    <div id="theUnlovedAwfullDiv">
 
-        <div id="theCoolAwesomeDiv">
+        <p id="player"></p> <!-- temporary -->
+        <br>
+        <p id="melodyEncoded"></p>
+        <button onclick="downloadArray();">Download it</button>
+        <input type="file" id="fileInput" accept=".txt">
+        <button onclick="uploadArray()">Load Selected File</button>
+    </div>
 
-            <!--reacting part-->
-            <div id="reaction-base-container">
-                <div class="reaction-base-type2" id=b0></div>
-                <div class="reaction-base-type1" id=base1 onclick="reactToClick(event, this, 1)"></div>
-                <div class="reaction-base-type2" id=b1></div>
-            </div>
+    <div id="theCoolAwesomeDiv">
 
-            <!--visual part-->
-            <div class="line-container">
-                <div class="line-tp"></div>
-                <div class="line-tp"></div>
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line-tp"></div>
-            </div>
+        <!--reacting part-->
+        <div id="reaction-base-container">
+            <div class="reaction-base-type2" id=b1 onclick="arrayCellsAdd(n)"></div>
+            <div class="reaction-base-type1" id=base1 onclick="reactToClick(event, this, 1)"></div>
         </div>
 
-        <!--Follower-->
-        <div class="cursor-follower"></div>
+        <!--visual part-->
+        <div class="line-container">
+            <div class="line-tp"></div>
+            <div class="line-tp"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line-tp"></div>
+        </div>
+    </div>
 
-        <script>
-            //onload stuff
-            function welcomeFunction() {
-                console.log("Reset");
-                follower('.reaction-base-type1');
+    <!--Follower-->
+    <div class="cursor-follower"></div>
+
+    <script>
+        //onload stuff
+        function welcomeFunction() {
+            console.log("Reset");
+            follower('.reaction-base-type1');
+        }
+
+
+        var fileReader = new FileReader();
+
+        var melodyEncoded = [];
+        var cells = 1;
+        const maxCells = 500;
+
+        var noteLength;
+        var leftMouseClicked = false;
+
+        const melodyDecoded = ["A#", "B", "C", "B", "C", "C#", "C#", "D", "D#", "D#",
+            "E", "F", "E", "F", "F#", "F#", "G", "G#", "G#", "A", "A#", "A#", "B", "C",
+            "B", "C", "C#", "C#", "D", "D#", "D#", "E", "F", "E", "F", "F#", "F#", "G",
+            "G#", "G#", "A", "A#", "A#", "B", "C", "B", "C", "C#"];
+        var BPM = 60;
+
+        // Creating starting array
+        for (var i = 0; i < cells; i++) {
+            melodyEncoded = melodyEncoded.concat(40);
+            for (var j = 0; j < 5; j++) {
+                melodyEncoded = melodyEncoded.concat(10);
             }
+        }
 
+        //Activating the note
+        function noteBascket(setNL) {
+            noteLength = setNL;         //what this
+        }
+        function reactToClick(event, baseInQuestion, n) {
 
-            var fileReader = new FileReader();
+            // locating stuff
+            const height = baseInQuestion.clientHeight;
+            const clickY = event.clientY - baseInQuestion.getBoundingClientRect().top;
+            const noteChanger = parseInt(16 * (1 - (clickY / height)));
+            const Coef = (n - 1) * 6;
+            console.log(height, clickY, noteChanger);
 
-            var melodyEncoded = [];
-            var cells = 1;
-            const maxCells = 500;
+            // handling all outcomes
+            switch (event.button) {
 
-            var noteLength;
-            var leftMouseClicked = false;
+                // adding a note
+                case 0:
+                    console.log("Left mouse button clicked.");
+                    if (melodyEncoded[Coef] % 10 < 5) { //check note count
+                        for (let c = 1; c <= 5; c++) {
+                            if (melodyEncoded[Coef + c] == 10) { //check if the cell has free space
+                                melodyEncoded[Coef + c] += ((noteChanger + 1) * 3);
+                                melodyEncoded[Coef]++;
+                                document.getElementById('melodyEncoded').innerHTML = melodyEncoded;// temporary output
 
-            
-            // Creating starting array
-            for (var i = 0; i < cells; i++) {
-                melodyEncoded = melodyEncoded.concat(40);
-                for (var j = 0; j < 5; j++) {
-                    melodyEncoded = melodyEncoded.concat(10);
-                }
+                                arrayNotesAdd(baseInQuestion, event);
+
+                                break;
+                            } else if (melodyEncoded[Coef + c] == 10 + ((noteChanger + 1) * 3)) {
+                                alert("note present already");
+                                break;
+                            } else { console.log("skippin"); }
+                        }
+                        if (melodyEncoded[Coef] % 10 == 1) { arrayCellsAdd(n); }
+                    } else { alert("note maximum reached!") }
+                    break;
+
+                // removing a note
+                default:
+                    console.log("Right mouse button (or any other) clicked.");
+                    break;
+                    melodyEncoded[1] = 10;
+                    document.getElementById('melodyEncoded').innerHTML = melodyEncoded;// temporary output
             }
+        }
 
-            //Activating the note
-            function noteBascket(setNL) {
-                noteLength = setNL;
-                console.log(setNL, noteLength);
-            }
-            function reactToClick(event, baseInQuestion, n) {
+        // adding a note cell
+        function arrayCellsAdd(idd) {
+            const container = document.getElementById('reaction-base-container');
+            const b = document.createElement('div');
+            const c = document.createElement('div');
+            cells++;
+            const n = cells;
 
-                // locating stuff
-                const height = baseInQuestion.clientHeight;
-                const clickY = event.clientY - baseInQuestion.getBoundingClientRect().top;
-                const noteChanger = parseInt(16 * (1 - (clickY / height)));
-                const Coef = (n - 1) * 6;
-                console.log(height, clickY, noteChanger);
+            b.className = 'reaction-base-type1';
+            b.id = 'base' + cells;
+            b.onclick = function (event) {
+                reactToClick(event, this, n);
+                console.log(event, this, n);
+            };
 
-                // handling all outcomes
-                switch (event.button) {
+            c.className = 'reaction-base-type2';
+            c.id = 'b' + cells;
+            c.onclick = function (event) {
+                arrayCellsAdd(n);
+            };
 
-                    // adding a note
-                    case 0:
-                        console.log("Left mouse button clicked.");
-                        if (melodyEncoded[Coef] % 10 < 5) { //check note count
-                            for (let c = 1; c <= 5; c++) {
-                                if (melodyEncoded[Coef + c] == 10) {
-                                    melodyEncoded[Coef + c] += ((noteChanger + 1) * 3);
-                                    melodyEncoded[Coef]++;
-                                    document.getElementById('melodyEncoded').innerHTML = melodyEncoded;// temporary output
+            console.log(cells);
+            if (cells % 10 == 1) {
+                const a = document.createElement('div');
+                const aa = document.createElement('div');
+                const aatp = document.createElement('div');
+                a.className = 'line-container';
+                aa.className = 'line';
+                aatp.className = 'line-tp';
 
-                                    break;
-                                } else if (melodyEncoded[Coef + c] == 10 + ((noteChanger + 1) * 3)) {
-                                    alert("note present already");
-                                    break;
-                                } else { console.log("skippin"); }
-                            }
-                            if (melodyEncoded[Coef] % 10 == 1) { arrayCellsFixer(n); }
-                        } else { alert("note maximum reached!") }
-                        break;
-
-                    // removing a note
-                    default:
-                        console.log("Right mouse button (or any other) clicked.");
-                        break;
-                        melodyEncoded[1] = 10;
-                        document.getElementById('melodyEncoded').innerHTML = melodyEncoded;// temporary output
-                }
-            }
-
-            // adding a note cell
-            function arrayCellsFixer(idd) {
-                const container = document.getElementById('reaction-base-container');
-                const b = document.createElement('div');
-                const c = document.createElement('div');
-                cells++;
-                const n = cells;
-
-                b.className = 'reaction-base-type1';
-                b.id = 'base' + cells;
-                b.onclick = function (event) {
-                    reactToClick(event, this, n);
-                    console.log(event, this, n);
-                };
-
-                c.className = 'reaction-base-type2';
-                c.id = 'b' + cells;
-                c.onclick = () => {
-                    arrayCellsFixer(n);
-                };
-
-                console.log(cells);
-                if (cells % 10 == 1) {
-                    const a = document.createElement('div');
-                    const aa = document.createElement('div');
-                    const aatp = document.createElement('div');
-                    a.className = 'line-container';
-                    aa.className = 'line';
-                    aatp.className = 'line-tp';
-
-                    const vcontainer = document.getElementById('theCoolAwesomeDiv');
-                    console.log('func opened');
+                const vcontainer = document.getElementById('theCoolAwesomeDiv');
+                console.log('func opened');
 
 
-                    a.id = 'lines' + (cells)
-                    for (let i = 0; i < 2; i++) {
-                        const newAatp = document.createElement('div');
-                        newAatp.className = 'line-tp'; // Set class for the new element
-                        a.appendChild(newAatp);
-                    }
-
-                    // Append the aa element five times
-                    for (let i = 0; i < 5; i++) {
-                        const newAa = document.createElement('div');
-                        newAa.className = 'line'; // Set class for the new element
-                        a.appendChild(newAa);
-                    }
-
+                a.id = 'lines' + (cells)
+                for (let i = 0; i < 2; i++) {
                     const newAatp = document.createElement('div');
                     newAatp.className = 'line-tp'; // Set class for the new element
                     a.appendChild(newAatp);
-
-                    vcontainer.appendChild(a); // Append the actual element
                 }
 
-                container.appendChild(b);
-                container.appendChild(c);
-                follower('.reaction-base-type1');// updating follower
-                melodyEncoded = melodyEncoded.concat(40, 10, 10, 10, 10, 10);
-                document.getElementById('melodyEncoded').innerHTML = melodyEncoded;
-            }
-            
-            // Temporary output
-            document.getElementById('melodyEncoded').innerHTML = melodyEncoded;
+                // Append the aa element five times
+                for (let i = 0; i < 5; i++) {
+                    const newAa = document.createElement('div');
+                    newAa.className = 'line'; // Set class for the new element
+                    a.appendChild(newAa);
+                }
 
-            // !!!!Following the mouse
-            function follower(selector){
+                const newAatp = document.createElement('div');
+                newAatp.className = 'line-tp'; // Set class for the new element
+                a.appendChild(newAatp);
+
+                vcontainer.appendChild(a); // Append the actual element
+            }
+
+            container.appendChild(c);
+            container.appendChild(b);
+            follower('.reaction-base-type1');// updating follower
+            melodyEncoded = melodyEncoded.concat(40, 10, 10, 10, 10, 10);
+            document.getElementById('melodyEncoded').innerHTML = melodyEncoded;
+        }
+
+
+        // ADDING A VISUAL NOTE
+        function arrayNotesAdd(idd, e) {
+            console.log(e);
+            const rect = idd.getBoundingClientRect();
+            const a = document.createElement('div');
+            a.className = 'one-4';
+
+            // Calculate the center X position
+            const centerX = rect.width / 2;
+            a.style.left = `${centerX}px`;
+
+            // Calculate the top position using rect.top
+            a.style.top = `${e.clientY - rect.top - ((e.clientY - rect.top) % (0.011 * window.innerHeight)) + (0.006 * window.innerHeight)}px`;
+
+
+            // Append the note to the container
+            idd.appendChild(a); // Append the note
+        }
+
+        // Temporary output
+        document.getElementById('melodyEncoded').innerHTML = melodyEncoded;
+
+        // !!!!Following the mouse
+        function follower(selector) {
             const follower = document.querySelector('.cursor-follower');
             const targetContainers = document.querySelectorAll(selector);
             document.addEventListener('mousemove', (e) => {
-                // Update follower position
-                follower.style.left = `${e.clientX}px`;
-                follower.style.top = `${e.clientY}px`;
+
+
 
                 // Check if mouse is inside any target container
                 let isInsideTarget = false;
                 targetContainers.forEach(container => {
                     const rect = container.getBoundingClientRect();
+                    const scrollTop = rect.scrollTop;
                     if (
                         e.clientX >= rect.left &&
                         e.clientX <= rect.right &&
@@ -331,6 +375,11 @@
                         e.clientY <= rect.bottom
                     ) {
                         isInsideTarget = true;
+
+                        // Update follower position
+                        const centerX = rect.left + rect.width / 2;
+                        follower.style.left = `${centerX}px`;
+                        follower.style.top = `${e.clientY - ((e.clientY - rect.y) % (0.011 * (window.innerHeight))) + 0.006 * window.innerHeight}px`;
                     }
                 });
 
@@ -338,40 +387,63 @@
             });
         }
 
-            // Downloading the array
-            function downloadArray() {
-                const blob = new Blob([melodyEncoded.join('')], { type: 'text/plain' });
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = 'myMasterpiece.txt';
-                document.body.appendChild(link);
-                link.click();
-                setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(link.href); }, 100);
+        // Downloading the array
+        function downloadArray() {
+            const blob = new Blob([melodyEncoded.join('')], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'myMasterpiece.txt';
+            document.body.appendChild(link);
+            link.click();
+            setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(link.href); }, 100);
+        }
+
+        // Uploading the array
+        function uploadArray() {
+            var fileToLoad = document.getElementById("fileInput").files[0];
+
+            if (!fileToLoad) {
+                alert("Please select a file first.");
+                return;
             }
 
-            // Uploading the array
-            function uploadArray() {
-                var fileToLoad = document.getElementById("fileInput").files[0];
-
-                if (!fileToLoad) {
-                    alert("Please select a file first.");
-                    return;
+            fileReader.onload = function (fileLoadedEvent) {
+                var textFromFileLoaded = fileLoadedEvent.target.result;
+                //updating 
+                melodyEncoded = [];
+                for (let i = 0; i < textFromFileLoaded.length; i += 2) {
+                    melodyEncoded.push(textFromFileLoaded.substring(i, i + 2));
                 }
+                document.getElementById("melodyEncoded").innerHTML = melodyEncoded;
+            };
 
-                fileReader.onload = function (fileLoadedEvent) {
-                    var textFromFileLoaded = fileLoadedEvent.target.result;
-                    //updating 
-                    melodyEncoded = [];
-                    for (let i = 0; i < textFromFileLoaded.length; i += 2) {
-                        melodyEncoded.push(textFromFileLoaded.substring(i, i + 2));
+            fileReader.readAsText(fileToLoad);
+
+        }
+
+        function play() {
+            let waitTime = 0;
+            var coef = 4;
+
+            for (let c = 0; c < melodyEncoded.length; c += 6) {
+                coef = (melodyEncoded[c] - melodyEncoded[c] % 10) / 10;
+
+                const noteTimeOut = setTimeout(() => {
+                    for (let n = 1; n < 6; n++) {
+                        if (melodyEncoded[c + n] == 10) {
+                            break;
+                        } else {
+                            console.log(melodyDecoded[melodyEncoded[c + n] - 12]);//will be replaced with acc sound
+                        }
                     }
-                    document.getElementById("melodyEncoded").innerHTML = melodyEncoded;
-                };
+                }, waitTime);
 
-                fileReader.readAsText(fileToLoad);
+                // Update currentTime for the next group of notes
+                waitTime += 240000 / (BPM * coef);
             }
-        </script>
-    </body>
+        }
 
-</html>
+    </script>
+</body>
+
 </html>

@@ -5,9 +5,167 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Piano Player</title>
   <link rel="stylesheet" href="styles.css">
+      <style>
+        body {
+            background: white;
+            color: black;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #toggleButton {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 1001;
+        }
+        .bar {
+            width: 100%;
+            height: 4px;
+            background-color: black;
+        }
+        #homeButton {
+            position: fixed;
+            top: 10px;
+            left: 50px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        #menu {
+            position: fixed;
+            top: 50px;
+            left: -25%;
+            width: 25%;
+            height: calc(100% - 50px);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-right: 2px solid white;
+            box-shadow: 2px 0 5px rgba(255,255,255,0.3);
+            overflow-y: auto;
+            transition: left 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            padding: 20px;
+            opacity: 0;
+        }
+        .menu-option {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            color: white;
+        }
+        #languageToggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        #musicLibrary {
+            display: none;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .track {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+        }
+        .track img {
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+        .info {
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-  <button class="menu-btn">☰ Menu</button>
+  <span id="languageToggle" onclick="toggleLanguage()">LV</span>
+    <button id="toggleButton">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </button>
+    <button id="homeButton" onclick="goHome()" data-lang="home">Galvenā</button>
+    <div id="menu">
+        <h2 id="pageTitle">Virtuālās Klavieres</h2>
+        <button class="menu-option" onclick="toggleLibrary()" data-lang="library">Skaņu bibliotēka</button>
+        <button class="menu-option" onclick="downloadMelody()" data-lang="download">Lejupielādēt melodiju</button>
+        <button class="menu-option" onclick="toggleTrainingMode()" data-lang="training">Apmācības režīms</button>
+        <button class="menu-option" onclick="changeTone()" data-lang="tones">Mainīt toņus</button>
+    </div>
+    <div id="musicLibrary">
+        <h1 id="libraryTitle">Skaņu bibliotēka</h1>
+        <div class="track">
+            <img src="cover1.jpg" alt="Vāks 1">
+            <div class="info">
+                <strong data-lang="composition1">Kompozīcija:</strong> Mēness sonāte<br>
+                <strong data-lang="author1">Autors:</strong> Ludvigs van Bēthovens
+            </div>
+        </div>
+        <div class="track">
+            <img src="cover2.jpg" alt="Vāks 2">
+            <div class="info">
+                <strong data-lang="composition2">Kompozīcija:</strong> Čaikovska Nocturne<br>
+                <strong data-lang="author2">Autors:</strong> Pjotrs Čaikovskis
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleLanguage() {
+            var langToggle = document.getElementById("languageToggle");
+            var lang = langToggle.textContent === "LV" ? "en" : "lv";
+            var translations = {
+                lv: { title: "Virtuālās Klavieres", library: "Skaņu bibliotēka", download: "Lejupielādēt melodiju", training: "Apmācības režīms", tones: "Mainīt toņus", libraryTitle: "Skaņu bibliotēka", home: "Galvenā" },
+                en: { title: "Virtual Piano", library: "Sound Library", download: "Download melody", training: "Training mode", tones: "Change tones", libraryTitle: "Sound Library", home: "Home" }
+            };
+            document.querySelectorAll("[data-lang]").forEach(el => {
+                var key = el.getAttribute("data-lang");
+                el.textContent = translations[lang][key];
+            });
+            document.getElementById("libraryTitle").textContent = translations[lang].libraryTitle;
+            langToggle.textContent = lang.toUpperCase();
+        }
+        function toggleLibrary() {
+            var library = document.getElementById("musicLibrary");
+            library.style.display = (library.style.display === "none" || library.style.display === "") ? "block" : "none";
+        }
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            menu.style.left = menu.style.left === "-25%" ? "0px" : "-25%";
+            menu.style.opacity = menu.style.opacity === "0" ? "1" : "0";
+        }
+        function goHome() {
+            location.reload();
+        }
+        document.getElementById("toggleButton").addEventListener("click", toggleMenu);
+        toggleLanguage();
 
   <input type="file" id="fileInput">
 

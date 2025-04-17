@@ -1,1 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piano Player</title>
+  <link rel="stylesheet" href="fullstyle.css">
+</head>
+<body onload="welcomeFunction()"> <!--onload stuff-->>
+  
+  <input type="file" id="fileInput">
 
+  <!-- Piano Keyboard -->
+  <div class="piano">
+
+    <div class="key white" data-note="C3"></div>
+    <div class="key black" data-note="C#3"></div>
+    <div class="key white" data-note="D3"></div>
+    <div class="key black" data-note="D#3"></div>
+    <div class="key white" data-note="E3"></div>
+    <div class="key empty" data-note="1"></div>
+    <div class="key white" data-note="F3"></div>
+    <div class="key black" data-note="F#3"></div>
+    <div class="key white" data-note="G3"></div>
+    <div class="key black" data-note="G#3"></div>
+    <div class="key white" data-note="A3"></div>
+    <div class="key black" data-note="A#3"></div>
+    <div class="key white" data-note="B3"></div>
+    <div class="key empty" data-note="2"></div>
+    <div class="key white" data-note="C4"></div>
+    <div class="key black" data-note="C#4"></div>
+    <div class="key white" data-note="D4"></div>
+    <div class="key black" data-note="D#4"></div>
+    <div class="key white" data-note="E4"></div>
+    <div class="key empty" data-note="3"></div>
+    <div class="key white" data-note="F4"></div>
+    <div class="key black" data-note="F#4"></div>
+    <div class="key white" data-note="G4"></div>
+    <div class="key black" data-note="G#4"></div>
+    <div class="key white" data-note="A4"></div>
+    <div class="key black" data-note="A#4"></div>
+    <div class="key white" data-note="B4"></div>
+    <div class="key empty" data-note="4"></div>
+    <div class="key white" data-note="C5"></div>
+  </div>
+
+
+<!--Bibliotēka-->
+
+<span id="languageToggle" onclick="toggleLanguage()">LV</span>
+    <button id="toggleButton">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </button>
+    <button id="homeButton" onclick="goHome()" data-lang="home">Galvenā</button>
+    <div id="menu">
+        <h2 id="pageTitle">Virtuālās Klavieres</h2>
+        <button class="menu-option" onclick="toggleLibrary()" data-lang="library">Skaņu bibliotēka</button>
+        <button class="menu-option" onclick="downloadMelody()" data-lang="download">Lejupielādēt melodiju</button>
+        <button class="menu-option" onclick="toggleTrainingMode()" data-lang="training">Apmācības režīms</button>
+        <button class="menu-option" onclick="changeTone()" data-lang="tones">Mainīt toņus</button>
+    </div>
+    <div id="musicLibrary">
+        <h1 id="libraryTitle">Skaņu bibliotēka</h1>
+        <div class="track">
+            <img src="cover1.jpg" alt="Vāks 1">
+            <div class="info">
+                <strong data-lang="composition1">Kompozīcija:</strong> Mēness sonāte<br>
+                <strong data-lang="author1">Autors:</strong> Ludvigs van Bēthovens
+            </div>
+        </div>
+        <div class="track">
+            <img src="cover2.jpg" alt="Vāks 2">
+            <div class="info">
+                <strong data-lang="composition2">Kompozīcija:</strong> Čaikovska Nocturne<br>
+                <strong data-lang="author2">Autors:</strong> Pjotrs Čaikovskis
+            </div>
+        </div>
+    </div>
+
+  <!--nošu līnija!!!!-->
+
+  <div id="notechoice-base-itnocg">
+    <button type="button" onclick="noteBascket(1)">full note</button>
+    <button type="button" onclick="noteBascket(2)">1/2 note</button>
+    <button type="button" onclick="noteBascket(3)">1/4 note</button>
+    <button type="button" onclick="noteBascket(4)">1/8</button>
+    <button type="button" onclick="noteBascket(5)">1/16 note</button>
+    <button type="button" onclick="noteBascket(6)">1/2 pause</button>
+    <button type="button" onclick="noteBascket(7)">1/4 pause</button>
+    <button type="button" onclick="noteBascket(8)">1/8 note</button>
+    <button type="button" onclick="noteBascket(9)">1/16</button>
+    <button type="button" onclick="noteBascket('d')">diez</button>
+    <button type="button" onclick="noteBascket('b')">bemol</button>
+    <button type="button" onclick="play()">play</button>
+</div>
+<div id="theUnlovedAwfullDiv">
+
+    <p id="player"></p> <!-- temporary -->
+    <br>
+    <p id="melodyEncoded"></p>
+    <button onclick="downloadArray();">Download it</button>
+    <input type="file" id="fileInput" accept=".txt">
+    <button onclick="uploadArray()">Load Selected File</button>
+</div>
+
+<div id="theCoolAwesomeDiv">
+
+    <!--reacting part-->
+    <div id="reaction-base-container">
+        <div class="reaction-base-type2" id=b1 onclick="arrayCellsAdd(n)"></div>
+        <div class="reaction-base-type1" id=base1 onclick="reactToClick(event, this, 1)"></div>
+        <div id="vertical-lines"></div>
+    </div>
+
+    <!--visual part-->
+    <div class="line-container">
+        <div class="line-tp"></div>
+        <div class="line-tp"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line-tp"></div>
+    </div>
+</div>
+
+<!--Follower-->
+<div class="cursor-follower"></div>
+
+
+  <script src="fullscript.js"></script>
+</body>
+</html>

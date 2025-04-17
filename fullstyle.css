@@ -1,1 +1,381 @@
+/*Sofjas daļa*/
 
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100vh;
+    overflow: hidden;
+  }
+   
+  /* Piano Section */
+  .piano {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding: 20px;
+    background-color: #222;
+    position: relative; 
+    
+  }
+  
+  .key {
+    position: relative;
+    height: 200px;
+    border: 1px solid #000;
+    cursor: pointer;
+    user-select: none;
+    display: inline-block;
+  }
+  
+  .white {
+    width: 60px;
+    background: white;
+    border: 1px solid #ccc;
+    margin: 0 -21px;
+    z-index: 2;
+    position: relative;
+  }
+  
+  .black {
+    justify-content: center;
+    width: 40px;
+    height: 130px;
+    background: black;
+    position: relative;
+    z-index: 3;
+  }
+ .empty {
+    justify-content: center;
+    width: 40px;
+    height: 130px;
+    visibility: hidden;
+    position: relative;
+    z-index: 1;
+  }
+  .key:active {
+    background: #f3f3f3;
+  }
+  
+  .black:active {
+    background: #333;
+  }
+
+  #toggleButton {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 30px;
+    height: 25px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1001;
+}
+.bar {
+    width: 100%;
+    height: 4px;
+    background-color: black;
+}
+#homeButton {
+    position: fixed;
+    top: 10px;
+    left: 50px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+#languageToggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.track {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+}
+.track img {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+.info {
+    text-align: left;
+}
+
+
+/*Veronikas daļa*/
+
+
+#toggleButton {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 30px;
+    height: 25px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1001;
+}
+.bar {
+    width: 100%;
+    height: 4px;
+    background-color: black;
+}
+#homeButton {
+    position: fixed;
+    top: 10px;
+    left: 50px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+}
+#menu {
+    position: fixed;
+    top: 50px;
+    left: -25%;
+    width: 25%;
+    height: calc(100% - 50px);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-right: 2px solid white;
+    box-shadow: 2px 0 5px rgba(255,255,255,0.3);
+    overflow-y: auto;
+    transition: left 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    padding: 20px;
+    opacity: 0;
+}
+.menu-option {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 10px;
+    margin: 5px 0;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    color: white;
+}
+#languageToggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+#musicLibrary {
+    display: none;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.track {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+}
+.track img {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+.info {
+    text-align: left;
+}
+
+
+
+/*Marijas daļa*/
+
+
+.one-4 {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 50%;
+    z-index: 101;
+}
+
+
+#theCoolAwesomeDiv {
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    left: 10vw;
+    top: 10svh;
+    /*sizee*/
+    width: 80vw;
+    height: 50vh;
+    flex-wrap: wrap
+}
+
+#theUnlovedAwfullDiv {
+    /*temporary parent*/
+    position: absolute;
+    bottom: 10px;
+}
+
+#notechoice-base-itnocg {
+    position: fixed;
+    top:0;
+    background: #89b34e;
+    height: 60px;
+    width: 100%;
+}
+
+p {
+    /* temporary styling */
+    color: navy;
+    width: 50%;
+    text-wrap: wrap;
+}
+
+.line-container {
+    width: 98%;
+    position: relative;
+    align-self: center;
+    box-sizing: border-box;
+    height: 17.6vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Evenly space the lines */
+    padding: 0.5vh 0 1.5vh;
+    margin-bottom: 1.1vh;
+}
+
+.line {
+    height: 0.2vh;
+    /* Height of each line */
+    background: black;
+    /* Color of the lines */
+    margin: 0;
+    /* Remove any default margin */
+}
+
+.line-tp {
+    height: 0.2vh;
+    /* Height of each line */
+    background: pink;
+    /* Color of the lines */
+    margin: 0;
+}
+
+#reaction-base-container {
+    position: absolute;
+    width: 80vw;
+    /* Full width of the parent */
+    height: 17.6vh;
+    /* Full height of the parent */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    top: 0;
+}
+
+.reaction-base-type1 {
+    position: relative;
+    width: 8.5%;
+    height: 17.6vh;
+    background: transparent;
+    padding: 0 0 0vh;
+    /*change to bigger num*/
+    z-index: 10;
+    margin-bottom: 1.1vh;
+}
+
+.reaction-base-type2 {
+    position: relative;
+    width: 1%;
+    height: 17.6vh;
+    background: transparent;
+    opacity: 0.25;
+    padding: 0 0 0vh;
+    /*change to bigger num*/
+    z-index: 10;
+    margin-bottom: 1.1vh;
+}
+
+.reaction-base-type2:hover {
+    background: rgba(255, 0, 0, 0.5);
+}
+
+#vertical-lines {
+    position: relative;
+    margin-top: 5vh;
+    height: 8.8vh;
+    /* Height of the lines */
+    width: 1.6vh;
+}
+
+#vertical-lines::before {
+    content: '';
+    position: absolute;
+    width: 0.4vh;
+    /* Width of the lines */
+    height: 100%;
+    /* Full height of the container */
+    background-color: black;
+    /* Color of the lines */
+    left: 0;
+}
+
+#vertical-lines::after {
+    content: '';
+    position: absolute;
+    width: 0.8vh;
+    /* Width of the lines */
+    height: 100%;
+    /* Full height of the container */
+    background-color: black;
+    /* Color of the lines */
+    right: 0;
+}
+
+.cursor-follower {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 0, 0, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 100;
+}

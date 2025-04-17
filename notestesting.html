@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>help</title>
+    <title>piano forte</title>
     <style>
         body {
             margin: 0;
@@ -28,6 +28,7 @@
             border-radius: 50%;
             z-index: 101;
         }
+
 
         #theCoolAwesomeDiv {
             overflow-y: auto;
@@ -108,8 +109,7 @@
             position: relative;
             width: 8.5%;
             height: 17.6vh;
-            background: darkmagenta;
-            opacity: 0.25;
+            background: transparent;
             padding: 0 0 0vh;
             /*change to bigger num*/
             z-index: 10;
@@ -126,6 +126,42 @@
             /*change to bigger num*/
             z-index: 10;
             margin-bottom: 1.1vh;
+        }
+
+        .reaction-base-type2:hover {
+            background: rgba(255, 0, 0, 0.5);
+        }
+
+        #vertical-lines {
+            position: relative;
+            margin-top: 5vh;
+            height: 8.8vh;
+            /* Height of the lines */
+            width: 1.6vh;
+        }
+
+        #vertical-lines::before {
+            content: '';
+            position: absolute;
+            width: 0.4vh;
+            /* Width of the lines */
+            height: 100%;
+            /* Full height of the container */
+            background-color: black;
+            /* Color of the lines */
+            left: 0;
+        }
+
+        #vertical-lines::after {
+            content: '';
+            position: absolute;
+            width: 0.8vh;
+            /* Width of the lines */
+            height: 100%;
+            /* Full height of the container */
+            background-color: black;
+            /* Color of the lines */
+            right: 0;
         }
 
         .cursor-follower {
@@ -174,6 +210,7 @@
         <div id="reaction-base-container">
             <div class="reaction-base-type2" id=b1 onclick="arrayCellsAdd(n)"></div>
             <div class="reaction-base-type1" id=base1 onclick="reactToClick(event, this, 1)"></div>
+            <div id="vertical-lines"></div>
         </div>
 
         <!--visual part-->
@@ -209,10 +246,10 @@
         var noteLength;
         var leftMouseClicked = false;
 
-        const melodyDecoded = ["A#", "B", "C", "B", "C", "C#", "C#", "D", "D#", "D#",
-            "E", "F", "E", "F", "F#", "F#", "G", "G#", "G#", "A", "A#", "A#", "B", "C",
-            "B", "C", "C#", "C#", "D", "D#", "D#", "E", "F", "E", "F", "F#", "F#", "G",
-            "G#", "G#", "A", "A#", "A#", "B", "C", "B", "C", "C#"];
+        const melodyDecoded = ["A#2", "B2", "C3", "B2", "C3", "C#3", "C#3", "D3", "D#3", "D#3",
+            "E3", "F3", "E3", "F3", "F#3", "F#3", "G3", "G#3", "G#3", "A3", "A#3", "A#3", "B3", "C4",
+            "B3", "C4", "C#4", "C#4", "D4", "D#4", "D#4", "E4", "F4", "E4", "F4", "F#4", "F#4", "G4",
+            "G#4", "G#4", "A4", "A#4", "A#4", "B4", "C5", "B4", "C5", "C#5"];
         var BPM = 60;
 
         // Creating starting array
@@ -236,6 +273,8 @@
             const Coef = (n - 1) * 6;
             console.log(height, clickY, noteChanger);
 
+            const resultCode = 10 + ((noteChanger + 1) * 3);
+
             // handling all outcomes
             switch (event.button) {
 
@@ -245,34 +284,39 @@
                     if (melodyEncoded[Coef] % 10 < 5) { //check note count
                         for (let c = 1; c <= 5; c++) {
                             if (melodyEncoded[Coef + c] == 10) { //check if the cell has free space
-                                melodyEncoded[Coef + c] += ((noteChanger + 1) * 3);
+                                melodyEncoded[Coef + c] = resultCode;
                                 melodyEncoded[Coef]++;
-                                document.getElementById('melodyEncoded').innerHTML = melodyEncoded;// temporary output
 
-                                arrayNotesAdd(baseInQuestion, event);
+                                arrayNotesAdd(baseInQuestion, event, resultCode, n);
 
                                 break;
-                            } else if (melodyEncoded[Coef + c] == 10 + ((noteChanger + 1) * 3)) {
-                                alert("note present already");
+                            } else if (melodyEncoded[Coef + c] == resultCode) {
+                                const element = document.getElementById('note' + n + resultCode);
+                                element.remove();
+                                for (let u = 5; u >= 1; u--) {
+                                    console.log('numbers' + melodyEncoded[Coef + u] + 'and' + melodyEncoded[Coef + c]);
+                                    if (melodyEncoded[Coef + u] != 10) {
+                                        melodyEncoded[Coef + c] = melodyEncoded[Coef + u];
+                                        melodyEncoded[Coef + u] = 10;
+                                        console.log('numbers' + melodyEncoded[Coef + u] + 'and' + melodyEncoded[Coef + c]);
+                                        melodyEncoded[Coef] --;
+                                        break;
+                                    }
+                                }
                                 break;
                             } else { console.log("skippin"); }
                         }
-                        if (melodyEncoded[Coef] % 10 == 1) { arrayCellsAdd(n); }
+                        if (melodyEncoded[(cells - 1) * 6] % 10 == 1) { arrayCellsAdd(n); }
                     } else { alert("note maximum reached!") }
                     break;
-
-                // removing a note
-                default:
-                    console.log("Right mouse button (or any other) clicked.");
-                    break;
-                    melodyEncoded[1] = 10;
-                    document.getElementById('melodyEncoded').innerHTML = melodyEncoded;// temporary output
             }
+            document.getElementById('melodyEncoded').innerHTML = melodyEncoded;// temporary output
         }
 
         // adding a note cell
         function arrayCellsAdd(idd) {
             const container = document.getElementById('reaction-base-container');
+            const end = document.getElementById('vertical-lines');
             const b = document.createElement('div');
             const c = document.createElement('div');
             cells++;
@@ -325,8 +369,8 @@
                 vcontainer.appendChild(a); // Append the actual element
             }
 
-            container.appendChild(c);
-            container.appendChild(b);
+            container.insertBefore((c), end);
+            container.insertBefore((b), end);
             follower('.reaction-base-type1');// updating follower
             melodyEncoded = melodyEncoded.concat(40, 10, 10, 10, 10, 10);
             document.getElementById('melodyEncoded').innerHTML = melodyEncoded;
@@ -334,18 +378,19 @@
 
 
         // ADDING A VISUAL NOTE
-        function arrayNotesAdd(idd, e) {
+        function arrayNotesAdd(idd, e, rc, n) {
             console.log(e);
             const rect = idd.getBoundingClientRect();
             const a = document.createElement('div');
             a.className = 'one-4';
+            a.id = 'note' + n + rc;
 
             // Calculate the center X position
-            const centerX = rect.width / 2;
+            const centerX = rect.width / 2 - 10;
             a.style.left = `${centerX}px`;
 
             // Calculate the top position using rect.top
-            a.style.top = `${e.clientY - rect.top - ((e.clientY - rect.top) % (0.011 * window.innerHeight)) + (0.006 * window.innerHeight)}px`;
+            a.style.top = `${e.clientY - rect.top - ((e.clientY - rect.top) % (0.011 * window.innerHeight)) + (0.006 * window.innerHeight) - 10}px`;
 
 
             // Append the note to the container

@@ -17,6 +17,25 @@ const noteFrequencies = {
     'C6': 1046.50, 
 };
 
+// try
+const keyMap = {
+  'a': 'C3',  'w': 'C#3', 's': 'D3',  'e': 'D#3', 'd': 'E3',
+  'f': 'F3',  't': 'F#3', 'g': 'G3',  'y': 'G#3', 'h': 'A3',
+  'u': 'A#3', 'j': 'B3',  'k': 'C4',  'o': 'C#4', 'l': 'D4',
+  'p': 'D#4', ';': 'E4',  '\'': 'F4', ']': 'F#4', '\\': 'G4'
+};
+
+document.addEventListener('keydown', (event) => {
+    const note = keyMap[event.key];
+    if (note) {
+        const key = document.querySelector(`.key[data-note="${note}"]`);
+        if (key) {
+            playAudio(note);
+            highlightKey(key);
+        }
+    }
+});
+
 // Set up event listeners for file input
 document.getElementById('fileInput').addEventListener('change', handleFileUpload);
 

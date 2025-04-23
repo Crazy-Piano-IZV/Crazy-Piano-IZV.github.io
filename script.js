@@ -16,22 +16,6 @@ const noteFrequencies = {
     'A#5': 932.33, 'B5': 987.77, 
     'C6': 1046.50, 
 };
-const keyMap = {
-  // Okt 3
-  'a': 'C3',  'w': 'C#3', 's': 'D3',  'e': 'D#3', 'd': 'E3',
-  'f': 'F3',  't': 'F#3', 'g': 'G3',  'y': 'G#3', 'h': 'A3',
-  'u': 'A#3', 'j': 'B3',
-  // Okt 4
-  'k': 'C4',  'o': 'C#4', 'l': 'D4',  'p': 'D#4', ';': 'E4',
-  '\'': 'F4', ']': 'F#4', '\\': 'G4', 'z': 'G#4', 'x': 'A4',
-  'c': 'A#4', 'v': 'B4',
-  // Okt 5
-  'b': 'C5',  '3': 'C#5', 'n': 'D5',  '4': 'D#5', 'm': 'E5',
-  ',': 'F5',  '6': 'F#5', '.': 'G5',  '7': 'G#5', '/': 'A5',
-  '8': 'A#5', '9': 'B5',
-  // Okt 6
-  '0': 'C6'
-};
 
 // Set up event listeners for file input
 document.getElementById('fileInput').addEventListener('change', handleFileUpload);
@@ -105,16 +89,5 @@ function highlightKey(key) {
 document.body.addEventListener("click", () => {
     if (audioContext.state === "suspended") {
         audioContext.resume();
-    }
-}
-
-document.addEventListener('keydown', (event) => {
-    const note = keyMap[event.key];
-    if (note) {
-        const keyElement = document.querySelector(`.key[data-note="${note}"]`);
-        if (keyElement) {
-            playAudio(note);
-            highlightKey(keyElement);
-        }
     }
 });

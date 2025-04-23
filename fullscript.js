@@ -21,6 +21,34 @@ const noteFrequencies = {
     'A#5': 932.33, 'B5': 987.77,
     'C6': 1046.50, 'C#6' : 1108.73,
 };
+function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        audioContext.decodeAudioData(e.target.result, function(buffer) {
+            const duration = Math.min(2, buffer.duration); // max 2 sek
+            const channels = buffer.numberOfChannels;
+            const sampleRate = buffer.sampleRate;
+
+            const shortBuffer = audioContext.createBuffer(
+                channels,
+                sampleRate * duration,
+                sampleRate
+            );
+            for (let i = 0; i < channels; i++) {
+                const channelData = buffer.getChannelData(i);
+                shortBuffer.copyToChannel(channelData.slice(0, sampleRate * duration), i);
+            }
+            audioBuffer = shortBuffer;
+            setupAnalyser();
+        });
+    };
+
+    reader.readAsArrayBuffer(file);
+}
 
 // Set up event listeners for file input
 document.getElementById('fileInput').addEventListener('change', handleFileUpload);

@@ -20,6 +20,40 @@ const noteFrequencies = {
 // Set up event listeners for file input
 document.getElementById('fileInput').addEventListener('change', handleFileUpload);
 
+// Add keyboard event listener
+document.addEventListener('keydown', (event) => {
+    const keyMap = {
+        'q': 'C3',
+        'w': 'C#3',
+        's': 'D3',
+        'r': 'D#3',
+        't': 'E3',
+        'y': 'F3',
+        'u': 'F#3',
+        'i': 'G3',
+        'o': 'G#3',
+        'p': 'A3',
+        'a': 'A#3',
+        's': 'B3',
+
+        'd': 'C4',
+        'f': 'C#4',
+        'g': 'D4',
+        'h': 'D#4',
+        'j': 'E4',
+        'k': 'F4',
+        'l': 'F#4',
+        'z': 'G4',
+        'x': 'G#4',
+        'c': 'A4',
+        'v': 'A#4',
+        'b': 'B4',
+
+        'n': 'C5',
+        'm': 'C#5',
+    };
+});
+
 // Add event listeners to piano keys
 document.querySelectorAll('.key').forEach(key => {
     key.addEventListener('mousedown', () => {
@@ -28,6 +62,8 @@ document.querySelectorAll('.key').forEach(key => {
         highlightKey(key); // Highlight the key
     });
 });
+
+
 
 // Handle file upload
 function handleFileUpload(event) {

@@ -52,6 +52,8 @@ document.addEventListener('keydown', (event) => {
         'n': 'C5',
         'm': 'C#5',
     };
+    playAudio(note); // Play the uploaded audio with modified pitch
+    highlightKey(key); // Highlight the key
 });
 
 // Add event listeners to piano keys

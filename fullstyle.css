@@ -382,8 +382,14 @@ p {
 /*notes*/
 
 .n4,
+.n4d,
+.n4b,
 .n8,
-.n16 {
+.n8d,
+.n8b,
+.n16,
+.n16d,
+.n16b {
   width: 20px;
   height: 10px;
   background-color: #000000;
@@ -392,7 +398,9 @@ p {
   position: relative;
 }
 
-.n2 {
+.n2,
+.n2d,
+.n2b {
   width: 20px;
   height: 10px;
   border-width: 2px 4px;
@@ -405,7 +413,9 @@ p {
   box-sizing: border-box;
 }
 
-.n1 {
+.n1,
+.n1d,
+.n1b {
   width: 20px;
   height: 10px;
   border-width: 2px 5px;
@@ -493,7 +503,7 @@ p {
   border-top-width: 1px;
   border-bottom: none;
   border-left: none;
-  right: 5px;
+  right: 6px;
 }
 
 
@@ -530,7 +540,7 @@ p {
   border-bottom-width: 3px;
   border-top: none;
   border-left: none;
-  left:-6px;
+  left: -6px;
 }
 
 .pause16::before {
@@ -543,6 +553,37 @@ p {
   border-bottom-width: 3px;
   border-top: none;
   border-left: none;
-  left:-6px;
+  left: -6px;
   top: 6px;
+}
+
+.n1d::before,
+.n2d::before,
+.n4d::before,
+.n8d::before,
+.n16d::before {
+  content: "\0023";
+  color: #000000;
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: x-large;
+  right: 1vw;
+  top: -1.5vh;
+}
+
+.n1b::before,
+.n2b::before,
+.n4b::before,
+.n8b::before,
+.n16b::before {
+  content: "\266D";
+  color: #000000;
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: xx-large;
+  right: 1vw;
+  top: -3.5vh;
 }

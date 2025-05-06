@@ -557,7 +557,19 @@ p {
   top: 6px;
 }
 
-.n1d::before,
+.n1d::before {
+  content: "\0023";
+  color: #000000;
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: x-large;
+  right: 1.5vw;
+  top: -1.5vh;
+}
+
+/*derotates*/
 .n2d::before,
 .n4d::before,
 .n8d::before,
@@ -569,11 +581,22 @@ p {
   font-style: italic;
   font-weight: 400;
   font-size: x-large;
-  right: 1vw;
+  right: 2vw;
   top: -1.5vh;
+  transform: rotate(20deg);
 }
 
-.n1b::before,
+.n1b::before {
+  content: "\266D";
+  color: #000000;
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: xx-large;
+  right: 1.5vw;
+  top: -3.5vh;
+}
+
 .n2b::before,
 .n4b::before,
 .n8b::before,
@@ -584,6 +607,7 @@ p {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: xx-large;
-  right: 1vw;
+  right: 1.5vw;
   top: -3.5vh;
+  transform: rotate(20deg);
 }

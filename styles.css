@@ -28,6 +28,16 @@ body {
     user-select: none;
     display: inline-block;
   }
+
+.keyElement {
+    position: relative;
+    height: 200px;
+    border: 1px solid #000;
+    cursor: pointer;
+    user-select: none;
+    display: inline-block;
+  }
+  
   
   .white {
     width: 60px;

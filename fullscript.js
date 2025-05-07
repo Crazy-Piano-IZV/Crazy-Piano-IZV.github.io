@@ -97,6 +97,36 @@ document.body.addEventListener("click", () => {
     }
 });
 
+// Handle click on track 
+document.querySelectorAll('.track').forEach(track => {
+    track.addEventListener('click', () => {
+        const audioFile = track.dataset.audio;
+
+        // Fetch the audio file
+        fetch(audioFile)
+            .then(response => response.arrayBuffer())
+            .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+            .then(buffer => {
+                // Save as the current audioBuffer used by piano keys
+                audioBuffer = buffer;
+
+                // Set up the analyser
+                setupAnalyser();
+
+                // Play a short preview
+                const previewSource = audioContext.createBufferSource();
+                previewSource.buffer = buffer;
+                previewSource.connect(audioContext.destination);
+                previewSource.start(0); // play from the beginning
+
+                // Optional: Stop after 2.5 seconds if needed
+                // previewSource.stop(audioContext.currentTime + 2.5);
+            })
+            .catch(error => {
+                console.error("Error loading melody:", error);
+            });
+    });
+});
 
 
 

@@ -138,6 +138,9 @@ function toggleLibrary() {
     var library = document.getElementById("musicLibrary");
     library.style.display = (library.style.display === "none" || library.style.display === "") ? "block" : "none";
 }
+function downloadMelody() {
+    document.getElementById("fileInput").click();
+}
 function toggleMenu() {
     var menu = document.getElementById("menu");
     menu.style.left = menu.style.left === "-25%" ? "0px" : "-25%";

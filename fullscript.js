@@ -112,8 +112,8 @@ function toggleLanguage() {
     var langToggle = document.getElementById("languageToggle");
     var lang = langToggle.textContent === "LV" ? "en" : "lv";
     var translations = {
-        lv: { title: "Virtuālās Klavieres", library: "Skaņu bibliotēka", download: "Lejupielādēt melodiju", training: "Apmācības režīms", tones: "Mainīt toņus", libraryTitle: "Skaņu bibliotēka", home: "Galvenā" },
-        en: { title: "Virtual Piano", library: "Sound Library", download: "Download melody", training: "Training mode", tones: "Change tones", libraryTitle: "Sound Library", home: "Home" }
+        lv: { title: "Virtuālās Klavieres", library: "Melodiju bibliotēka", download: "Lejupielādēt melodiju", training: "Apmācības režīms", tones: "Mainīt toņus", libraryTitle: "Skaņu bibliotēka", home: "Galvenā" },
+        en: { title: "Virtual Piano", library: "Melody Library", download: "Download melody", training: "Training mode", tones: "Change tones", libraryTitle: "Sound Library", home: "Home" }
     };
     document.querySelectorAll("[data-lang]").forEach(el => {
         var key = el.getAttribute("data-lang");

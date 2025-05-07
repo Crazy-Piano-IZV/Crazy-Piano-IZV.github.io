@@ -97,39 +97,6 @@ document.body.addEventListener("click", () => {
     }
 });
 
-// Handle click on track 
-document.querySelectorAll('.track').forEach(track => {
-    track.addEventListener('click', () => {
-        const audioFile = track.dataset.audio;
-
-        // Fetch the audio file
-        fetch(audioFile)
-            .then(response => response.arrayBuffer())
-            .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
-            .then(buffer => {
-                // Save as the current audioBuffer used by piano keys
-                audioBuffer = buffer;
-
-                // Set up the analyser
-                setupAnalyser();
-
-                // Play a short preview
-                const previewSource = audioContext.createBufferSource();
-                previewSource.buffer = buffer;
-                previewSource.connect(audioContext.destination);
-                previewSource.start(0); // play from the beginning
-
-                // Optional: Stop after 2.5 seconds if needed
-                // previewSource.stop(audioContext.currentTime + 2.5);
-            })
-            .catch(error => {
-                console.error("Error loading melody:", error);
-            });
-    });
-});
-
-
-
 
 //Library part
 
@@ -182,6 +149,33 @@ function goHome() {
 document.getElementById("toggleButton").addEventListener("click", toggleMenu);
 toggleLanguage();
 
+// Load and preview a track (and set it as current audioBuffer)
+document.querySelectorAll('.track').forEach(track => {
+    track.addEventListener('click', () => {
+        const audioPath = track.getAttribute('data-audio');
+
+        fetch(audioPath)
+            .then(res => res.arrayBuffer())
+            .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+            .then(decodedBuffer => {
+                audioBuffer = decodedBuffer; // Now piano uses this audio
+
+                setupAnalyser();
+
+                // Play a 2-second preview
+                const previewSource = audioContext.createBufferSource();
+                previewSource.buffer = decodedBuffer;
+
+                const previewGain = audioContext.createGain(); // so we can stop it cleanly
+                previewSource.connect(previewGain);
+                previewGain.connect(audioContext.destination);
+
+                previewSource.start(0);
+                previewSource.stop(audioContext.currentTime + 2); // Stop after 2 seconds
+            })
+            .catch(err => console.error("Failed to load audio:", err));
+    });
+});
 
 
 

@@ -241,7 +241,7 @@ body {
     color: white;
 }
 
-.buttonPlay {
+#buttonPlay {
   box-sizing: border-box;
   width: 0;
   height: 74px;
@@ -254,7 +254,7 @@ body {
   z-index: 6000;
 }
 
-.buttonPlay.paused {
+#buttonPlay.paused {
   border-style: double;
   border-width: 0px 0 0px 60px;
 }

@@ -152,23 +152,31 @@ function toggleLanguage() {
     var currentLang = langButton.textContent === "LV" ? "lv" : "en";
     var newLang = currentLang === "lv" ? "en" : "lv";
     var translations = {
-        lv: {
+                lv: {
             title: "Virtuālās Klavieres",
             library: "Melodiju bibliotēka",
             download: "Ielādēt melodiju",
             training: "Apmācības režīms",
             tones: "Mainīt toņus",
             libraryTitle: "Skaņu bibliotēka",
-            home: "Galvenā"
+            home: "Galvenā",
+            soundSel: "Izvēlēties audio",
+            Downl: "Lejupielādēt kodu",
+            Upl:"Augšpielādēt kodu",
+            Load: "Konstruēt melodiju (wip)"
         },
         en: {
             title: "Virtual Piano",
             library: "Melody Library",
-            download: "Upload melody",
+            download: "Browse melody",
             training: "Training mode",
             tones: "Change tones",
             libraryTitle: "Sound Library",
-            home: "Home"
+            home: "Home",
+            soundSel: "Select an audio",
+            Downl: "Download this",
+            Upl:"Upload sound",
+            Load: "Load Selected array (wip)"
         }
     };
     document.querySelectorAll("[data-lang]").forEach(el => {

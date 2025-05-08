@@ -1,8 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-<body>
-  <p><a href="./full.html">Full site testing</a></p><br>
-  <p><a href="./pianosite.html">Piano testing</a></p>
-  <p><a href="./notestesting.html">Notes testing,</a>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piano Player</title>
+  <link rel="stylesheet" href="fullstyle.css">
+</head>
+<body onload="welcomeFunction()"> <!--onload stuff-->>
+  
+  <input type="file" id="fileInput">
+
+  <!-- Piano Keyboard -->
+  <div class="piano">
+
+    <div class="key white" data-note="C3"></div>
+    <div class="key black" data-note="C#3"></div>
+    <div class="key white" data-note="D3"></div>
+    <div class="key black" data-note="D#3"></div>
+    <div class="key white" data-note="E3"></div>
+    <div class="key empty" data-note="1"></div>
+    <div class="key white" data-note="F3"></div>
+    <div class="key black" data-note="F#3"></div>
+    <div class="key white" data-note="G3"></div>
+    <div class="key black" data-note="G#3"></div>
+    <div class="key white" data-note="A3"></div>
+    <div class="key black" data-note="A#3"></div>
+    <div class="key white" data-note="B3"></div>
+    <div class="key empty" data-note="2"></div>
+    <div class="key white" data-note="C4"></div>
+    <div class="key black" data-note="C#4"></div>
+    <div class="key white" data-note="D4"></div>
+    <div class="key black" data-note="D#4"></div>
+    <div class="key white" data-note="E4"></div>
+    <div class="key empty" data-note="3"></div>
+    <div class="key white" data-note="F4"></div>
+    <div class="key black" data-note="F#4"></div>
+    <div class="key white" data-note="G4"></div>
+    <div class="key black" data-note="G#4"></div>
+    <div class="key white" data-note="A4"></div>
+    <div class="key black" data-note="A#4"></div>
+    <div class="key white" data-note="B4"></div>
+    <div class="key empty" data-note="4"></div>
+    <div class="key white" data-note="C5"></div>
+  </div>
+
+
+<!--Bibliotēka-->
+<button id="languageButton" onclick="toggleLanguage()">LV </button>
+    <button id="toggleButton">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </button>
+    <button id="homeButton" onclick="goHome()" data-lang="home">Galvenā</button>
+    <div id="menu">
+        <h2 id="pageTitle">Crazy Piano</h2>
+        <button class="menu-option" onclick="toggleLibrary()" data-lang="library">Skaņu bibliotēka</button>
+        <button class="menu-option" onclick="downloadMelody()" data-lang="download">Lejupielādēt melodiju</button>
+        <button class="menu-option" onclick="toggleTrainingMode()" data-lang="training">Apmācības režīms</button>
+        <button class="menu-option" onclick="changeTone()" data-lang="tones">Mainīt toņus</button>
+    </div>
+    <div id="musicLibrary">
+        <h1 id="libraryTitle">Skaņu bibliotēka</h1>
+        <div class="track" data-audio="cat-meowing-type-02-293290(1) (mp3cut.net).mp3">
+            <img src="cat.jpg">
+            <div class="info">
+                <strong data-lang="composition1">Kompozīcija:</strong> Cat meowing<br>
+                <strong data-lang="author1">Autors:</strong> Cat
+            </div>
+        </div>
+        <div class="track" data-audio="singing-bird-332873 (mp3cut.net).mp3">
+            <img src="bird.jpg">
+            <div class="info">
+                <strong data-lang="composition2">Kompozīcija:</strong> Birds singing<br>
+                <strong data-lang="author2">Autors:</strong> Birds
+            </div>
+        </div>
+        <div class="track" data-audio="piano-g-6200.mp3">
+            <img src="piano.jpg">
+            <div class="info">
+                <strong data-lang="composition3">Kompozīcija:</strong> Piano<br>
+                <strong data-lang="author3">Autors:</strong> Unknown
+            </div>
+        </div>
+    </div>
+
+  <!--nošu līnija!!!!-->
+
+  <body onload="welcomeFunction()"> <!--onload stuff-->>
+    <!--additional buttons-->
+    <div id="notechoice-base-itnocg">
+        <button type="button" onclick="noteBasket(1)">&#119133;</button>
+        <button type="button" onclick="noteBasket(2)">&#119134;</button>
+        <button type="button" onclick="noteBasket(3)">&#119135;</button>
+        <button type="button" onclick="noteBasket(4)">&#119136;</button>
+        <button type="button" onclick="noteBasket(5)">&#119137;</button>
+        <button type="button" onclick="noteBasket(6)">&#119100;</button>
+        <button type="button" onclick="noteBasket(7)">&#119101;</button>
+        <button type="button" onclick="noteBasket(8)">&#119102;</button>
+        <button type="button" onclick="noteBasket(9)">&#119103;</button>
+        <button type="button" onclick="noteBasket('d')">&#9839;</button>
+        <button type="button" onclick="noteBasket('b')">&#9837;</button>
+    </div>
+
+    <button type="button" onclick="play()">play</button>
+
+    <div id="theUnlovedAwfullDiv">
+        <p id="player"></p> <!-- temporary -->
+        <br>
+        <button onclick="downloadArray();">Download it</button>
+        <input type="file" id="fileInput" accept=".txt">
+        <button onclick="uploadArray()">Load Selected File</button>
+    </div>
+
+    <div id="theCoolAwesomeDiv">
+
+        <!--reacting part-->
+        <div id="reaction-base-container">
+            <div style="position:relative; font-size:17.6vh; z-index:785431; margin-top: -5vh;">&#119070;</div>
+            <div class="reaction-base-type2" id=b1 onclick="arrayCellsAdd(n)"></div>
+            <div class="reaction-base-type1" id=base1 onclick="reactToClick(event, this, 1)">
+                <div class="stick1" id=s1></div>
+            </div>
+            <div id="vertical-lines"></div>
+        </div>
+
+        <!--visual part-->
+        <div class="line-container">
+            <div class="line-tp"></div>
+            <div class="line-tp"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line-tp"></div>
+        </div>
+    </div>
+
+    <!--Follower-->
+    <div class="cursor-follower"></div>
+
+    <script src="fullscript.js">
+    </script>
 </body>
-</html>

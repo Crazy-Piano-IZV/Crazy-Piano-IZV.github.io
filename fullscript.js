@@ -291,7 +291,12 @@ function reactToClick(event, baseInQuestion, n) {
             melodyEncoded[Coef] = noteLength * 10 + (melodyEncoded[Coef] % 10);
 
 
-
+            //changing stick style
+            const stboba = document.getElementById("s" + `${n}`); // stboba is a stick for abobas
+            if (!stboba.classList.contains("stick" + `${2 ** (noteLength - 1)}`)) {
+                stboba.classList.remove(stboba.classList.item(0));
+                stboba.classList.add("stick" + `${2 ** (noteLength - 1)}`);
+            }
 
 
 
@@ -364,13 +369,6 @@ function reactToClick(event, baseInQuestion, n) {
 
             }
             melodyEncoded[Coef] = noteLength * 10 + 1;
-
-                                //changing stick style
-            const stboba = document.getElementById("s" + `${n}`); // stboba is a stick for abobas
-            if (!stboba.classList.contains("stick" + `${2 ** (noteLength - 1)}`)) {
-                stboba.classList.remove(stboba.classList.item(0));
-                stboba.classList.add("stick" + `${2 ** (noteLength - 1)}`);
-            }
 
             const stboba2 = document.getElementById("s" + `${n}`); // stboba is stick for abobas
             if (!stboba2.classList.contains("stick" + `${2 ** (noteLength - 1)}`)) {
@@ -465,8 +463,6 @@ function reactToClick(event, baseInQuestion, n) {
 
     document.getElementById('melodyEncoded').innerHTML = melodyEncoded;// temporary output
 }
-
-
 // adding a note cell
 function arrayCellsAdd(idd) {
     const container = document.getElementById('reaction-base-container');
@@ -640,9 +636,7 @@ function play() {
                 if (melodyEncoded[c + n] == 10) {
                     break;
                 } else {
-                    if ((melodyEncoded[c + n] - 12)!=88){
                     playAudio(melodyDecoded[melodyEncoded[c + n] - 12]); // Play the uploaded audio with modified pitch
-                    }
                 }
             }
         }, waitTime);

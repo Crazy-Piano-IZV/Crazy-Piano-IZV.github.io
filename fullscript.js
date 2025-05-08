@@ -201,14 +201,13 @@ var melodyEncoded = [];
 var cells = 1;
 const maxCells = 500;
 
-var noteLength;
-var leftMouseClicked = false;
+var noteLength = 4;
 
-const melodyDecoded = ["A#4", "B3", "C4", "B3", "C4", "C#4", "C#4", "D4", "D#4", "D#4",
-    "E4", "F4", "E4", "F4", "F#4", "F#4", "G4", "G#4", "G#4", "A4", "A#4", "A#4", "B4", "C5",
-    "B4", "C5", "C#5", "C#5", "D5", "D#5", "D#5", "E5", "F5", "E5", "F5", "F#5", "F#5", "G5",
-    "G#5", "G#5", "A5", "A#5", "A#5", "B5", "C6", "B5", "C6", "C#6"];
-var BPM = 120;
+const melodyDecoded = ["A#2", "B2", "C3", "B2", "C3", "C#3", "C#3", "D3", "D#3", "D#3",
+    "E3", "F3", "E3", "F3", "F#3", "F#3", "G3", "G#3", "G#3", "A3", "A#3", "A#3", "B3", "C4",
+    "B3", "C4", "C#4", "C#4", "D4", "D#4", "D#4", "E4", "F4", "E4", "F4", "F#4", "F#4", "G4",
+    "G#4", "G#4", "A4", "A#4", "A#4", "B4", "C5", "B4", "C5", "C#5"];
+var BPM = 60;
 
 // Creating starting array
 for (var i = 0; i < cells; i++) {
@@ -219,57 +218,205 @@ for (var i = 0; i < cells; i++) {
 }
 
 //Activating the note
-function noteBascket(setNL) {
+function noteBasket(setNL) {
     noteLength = setNL;         //what this
 }
+
 function reactToClick(event, baseInQuestion, n) {
+    /*n - numeral of the cell
+    baseInQuestion - cell ID
+    event - event obvi
+    */
 
     // locating stuff
     const height = baseInQuestion.clientHeight;
     const clickY = event.clientY - baseInQuestion.getBoundingClientRect().top;
     const noteChanger = parseInt(16 * (1 - (clickY / height)));
     const Coef = (n - 1) * 6;
-    console.log(height, clickY, noteChanger);
+    var switcher;
 
-    const resultCode = 10 + ((noteChanger + 1) * 3);
+    const resultCode = 10 + ((noteChanger + 1) * 3); // setting note height
 
-    // handling all outcomes
-    switch (event.button) {
+    switcher = noteLength > 5 ? 2 : noteLength > 0 ? 1 : 3;
+    //changing length coef
+    switch (switcher) {
+        case 1:
+            melodyEncoded[Coef] = noteLength * 10 + (melodyEncoded[Coef] % 10);
 
-        // adding a note
-        case 0:
-            console.log("Left mouse button clicked.");
-            if (melodyEncoded[Coef] % 10 < 5) { //check note count
-                for (let c = 1; c <= 5; c++) {
-                    if (melodyEncoded[Coef + c] == 10) { //check if the cell has free space
-                        melodyEncoded[Coef + c] = resultCode;
-                        melodyEncoded[Coef]++;
 
-                        arrayNotesAdd(baseInQuestion, event, resultCode, n);
+            //changing stick style
+            const stboba = document.getElementById("s" + `${n}`); // stboba is a stick for abobas
+            if (!stboba.classList.contains("stick" + `${2 ** (noteLength - 1)}`)) {
+                stboba.classList.remove(stboba.classList.item(0));
+                stboba.classList.add("stick" + `${2 ** (noteLength - 1)}`);
+            }
 
-                        break;
-                    } else if (melodyEncoded[Coef + c] == resultCode) {
-                        const element = document.getElementById('note' + n + resultCode);
-                        element.remove();
-                        for (let u = 5; u >= 1; u--) {
-                            console.log('numbers' + melodyEncoded[Coef + u] + 'and' + melodyEncoded[Coef + c]);
-                            if (melodyEncoded[Coef + u] != 10) {
-                                melodyEncoded[Coef + c] = melodyEncoded[Coef + u];
-                                melodyEncoded[Coef + u] = 10;
-                                console.log('numbers' + melodyEncoded[Coef + u] + 'and' + melodyEncoded[Coef + c]);
-                                melodyEncoded[Coef] --;
-                                break;
-                            }
+
+
+
+
+            //changing preexisting notes class
+
+            if (melodyEncoded[Coef + 1] == 88) { //in case it used to be a pause
+                const removePause = document.getElementById("p" + `${n}`);
+                removePause.remove();
+                melodyEncoded[Coef + 1] = 10; //prepare to add notes
+                melodyEncoded[Coef]--;
+            } 
+                for (i = 1; i <= melodyEncoded[Coef] % 10; i++) { //according to the note amount
+                    const aboba = document.getElementById("note" + `${n}${melodyEncoded[Coef + i ]}`);
+                    const newClass = "n" + `${2 ** (noteLength - 1)}`;
+
+                        if (aboba.className.slice(-1) == 'b' || aboba.className.slice(-1) == 'd') {
+                            var lastChar = aboba.className.slice(-1);
+                            aboba.classList.remove(aboba.classList.item(0));
+                            aboba.classList.add(newClass + lastChar);
+                        } else {
+                            aboba.classList.remove(aboba.classList.item(0));
+                            aboba.classList.add(newClass);
                         }
-                        break;
-                    } else { console.log("skippin"); }
+                        console.log (aboba.className)
                 }
-                if (melodyEncoded[(cells - 1) * 6] % 10 == 1) { arrayCellsAdd(n); }
-            } else { alert("note maximum reached!") }
+                melodyEncoded[Coef] = noteLength * 10 + (melodyEncoded[Coef] % 10);
+            console.log(((melodyEncoded[Coef]-melodyEncoded[Coef + 1]%10)/10), noteLength);
+
+
+            for (let c = 1; c <= 5; c++) {
+                if (melodyEncoded[Coef + c] == 10) { //check if the cell has free space
+                    melodyEncoded[Coef + c] = resultCode;
+                    melodyEncoded[Coef]++;
+
+                    arrayNotesAdd(baseInQuestion, event, resultCode, n);
+
+                    break;
+                } else if (melodyEncoded[Coef + c] == resultCode || // check if it's already there //
+                    melodyEncoded[Coef + c] == (resultCode + 1) ||
+                    melodyEncoded[Coef + c] == (resultCode - 1)
+                ) {
+                    const curF = melodyEncoded[Coef + c]; //shortening the name
+                    const rcd =
+                        resultCode == curF ? resultCode : curF == (resultCode + 1) ? (resultCode + 1) : (resultCode - 1); //finding the specific coef
+
+                    const element = document.getElementById('note' + n + rcd);
+                    element.remove();
+                    for (let u = 5; u >= 1; u--) {
+                        if (melodyEncoded[Coef + u] != 10) {
+                            melodyEncoded[Coef + c] = melodyEncoded[Coef + u];
+                            melodyEncoded[Coef + u] = 10;
+                            melodyEncoded[Coef]--;
+                            break;
+                        }
+                    }
+                    break;
+                } else { if (c == 5) { alert("maximum 5 notes at once!"); } }
+            }
+
             break;
+
+        case 2: //adding a pause
+            if (melodyEncoded[Coef] == noteLength * 10 + 1) { //remove the pause
+                melodyEncoded[Coef] = 40;
+                melodyEncoded[Coef + 1] = 10;
+                const removePause2 = document.getElementById("p" + `${n}`);
+                removePause2.remove();
+
+            }
+            melodyEncoded[Coef] = noteLength * 10 + 1;
+
+            const stboba2 = document.getElementById("s" + `${n}`); // stboba is stick for abobas
+            if (!stboba2.classList.contains("stick" + `${2 ** (noteLength - 1)}`)) {
+                stboba2.classList.remove(stboba2.classList.item(0));
+                stboba2.classList.add("stick" + `${2 ** (noteLength - 1)}`);
+            }
+
+            if (melodyEncoded[Coef + 1] == (88)) {
+                const changePause = document.getElementById("p" + `${n}`);
+                changePause.classList.remove(changePause.classList.item(0));
+                changePause.classList.add("pause" + (2 ** (noteLength - 5)));
+            } else {
+
+                for (let c = 1; c <= 5; c++) {
+                    if (melodyEncoded[Coef + c] != 10) {
+                        const removeNote = document.getElementById("note" + `${n}${melodyEncoded[Coef + c]}`);
+                        removeNote.remove();
+                        melodyEncoded[Coef + c] = 10;  //removing notes
+
+                    } else { break; }
+                }
+                arrayPausesAdd(n, baseInQuestion);
+                melodyEncoded[Coef + 1] = 88;
+            }
+
+            melodyEncoded[Coef] = noteLength * 10 + 1;
+            melodyEncoded[Coef + 1] = 88;
+
+            break;
+
+        case 3:
+
+            const addOn = noteLength == "d" ? 1 : (-1);
+            const cf = (melodyEncoded[Coef] - melodyEncoded[Coef] % 10) / 10;
+
+            for (let c = 1; c <= 5; c++) {
+                if (melodyEncoded[Coef + c] == resultCode || // check if it's already there //
+                    melodyEncoded[Coef + c] == (resultCode + 1) ||
+                    melodyEncoded[Coef + c] == (resultCode - 1)
+                ) {
+                    var cc = melodyEncoded[Coef + c];
+
+                    if ((cc - resultCode) == addOn) {
+                        const element = document.getElementById('note' + `${n}${cc}`);
+                        element.classList.remove(element.classList.item(0));
+                        element.classList.add("n" + `${2 ** (cf - 1)}`);
+
+                        melodyEncoded[Coef + c] = resultCode - addOn; //changing the array
+                        cc = melodyEncoded[Coef + c];
+                        element.id = 'note' + `${n}${cc}`;
+
+                    } else {
+                        const element = document.getElementById('note' + `${n}${cc}`);
+
+                        melodyEncoded[Coef + c] = resultCode + addOn; //changing the array
+                        cc = melodyEncoded[Coef + c];
+
+                        element.classList.remove(element.classList.item(0));
+                        element.classList.add("n" + `${2 ** (cf - 1)}` + noteLength);
+
+                        element.id = 'note' + `${n}${cc}`;
+                    }
+
+                    break;
+                } else { }
+            }
+
+            break;
+
+
+        default:
+
     }
+
+    if (melodyEncoded[(cells - 1) * 6] % 10 > 0) { arrayCellsAdd(n); }
+
+    let min = 58;
+    let max = 10;
+    const stboba = document.getElementById("s" + n);
+    for (i = 1; i <= melodyEncoded[Coef] % 10; i++) {
+        if (melodyEncoded[Coef + i] < min) { min = melodyEncoded[Coef + i]; }
+        if (melodyEncoded[Coef + i] > max) { max = melodyEncoded[Coef + i]; }
+    }
+    const stbobaHeight = ((max - min) - ((max - min) % 3)) / 3 * 0.011 * window.innerHeight + 43;//changing stick length
+    stboba.style.height = `${stbobaHeight}px`;
+    stboba.style.top = `${(58 - max) / 3 * 0.011 * window.innerHeight - 40}px`;
+
+    if (melodyEncoded[Coef] % 10 == 0) {
+        stboba.classList.remove(stboba.classList.item(0));
+        stboba.classList.add("stick1");
+    }
+
     document.getElementById('melodyEncoded').innerHTML = melodyEncoded;// temporary output
 }
+
 
 // adding a note cell
 function arrayCellsAdd(idd) {
@@ -277,6 +424,7 @@ function arrayCellsAdd(idd) {
     const end = document.getElementById('vertical-lines');
     const b = document.createElement('div');
     const c = document.createElement('div');
+    const newStick = document.createElement('div');
     cells++;
     const n = cells;
 
@@ -284,7 +432,6 @@ function arrayCellsAdd(idd) {
     b.id = 'base' + cells;
     b.onclick = function (event) {
         reactToClick(event, this, n);
-        console.log(event, this, n);
     };
 
     c.className = 'reaction-base-type2';
@@ -293,7 +440,9 @@ function arrayCellsAdd(idd) {
         arrayCellsAdd(n);
     };
 
-    console.log(cells);
+    newStick.className = 'stick1';
+    newStick.id = 's' + cells;
+
     if (cells % 10 == 1) {
         const a = document.createElement('div');
         const aa = document.createElement('div');
@@ -303,7 +452,6 @@ function arrayCellsAdd(idd) {
         aatp.className = 'line-tp';
 
         const vcontainer = document.getElementById('theCoolAwesomeDiv');
-        console.log('func opened');
 
 
         a.id = 'lines' + (cells)
@@ -329,6 +477,7 @@ function arrayCellsAdd(idd) {
 
     container.insertBefore((c), end);
     container.insertBefore((b), end);
+    b.appendChild(newStick);
     follower('.reaction-base-type1');// updating follower
     melodyEncoded = melodyEncoded.concat(40, 10, 10, 10, 10, 10);
     document.getElementById('melodyEncoded').innerHTML = melodyEncoded;
@@ -337,26 +486,32 @@ function arrayCellsAdd(idd) {
 
 // ADDING A VISUAL NOTE
 function arrayNotesAdd(idd, e, rc, n) {
-    console.log(e);
     const rect = idd.getBoundingClientRect();
     const a = document.createElement('div');
-    a.className = 'one-4';
+    a.className = 'n' + `${2 ** (noteLength - 1)}`;
     a.id = 'note' + n + rc;
 
     // Calculate the center X position
-    const centerX = rect.width / 2 - 10;
-    a.style.left = `${centerX}px`;
+
 
     // Calculate the top position using rect.top
-    a.style.top = `${e.clientY - rect.top - ((e.clientY - rect.top) % (0.011 * window.innerHeight)) + (0.006 * window.innerHeight) - 10}px`;
+    a.style.top = `${e.clientY - rect.top - ((e.clientY - rect.top) % (0.011 * window.innerHeight)) - 2}px`;
 
 
     // Append the note to the container
     idd.appendChild(a); // Append the note
 }
 
+function arrayPausesAdd(n, idd) {
+    const pause = document.createElement('div');
+    pause.className = 'pause' + `${2 ** (noteLength - 5)}`;
+    pause.id = 'p' + n;
+    idd.appendChild(pause);
+}
+
 // Temporary output
 document.getElementById('melodyEncoded').innerHTML = melodyEncoded;
+
 
 // !!!!Following the mouse
 function follower(selector) {
@@ -436,11 +591,17 @@ function play() {
                 if (melodyEncoded[c + n] == 10) {
                     break;
                 } else {
+                    if ((melodyEncoded[c + n] - 12)!=88){
                     playAudio(melodyDecoded[melodyEncoded[c + n] - 12]); // Play the uploaded audio with modified pitch
+                    }
                 }
             }
         }, waitTime);
 
+        // Update currentTime for the next group of notes
+        waitTime += 240000 / (BPM * coef);
+    }
+}
         // Update currentTime for the next group of notes
         waitTime += 240000 / (BPM * coef);
     }

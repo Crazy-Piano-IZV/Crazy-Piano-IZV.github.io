@@ -524,7 +524,6 @@ function arrayCellsAdd(idd) {
     b.appendChild(newStick);
     follower('.reaction-base-type1');// updating follower
     melodyEncoded = melodyEncoded.concat(40, 10, 10, 10, 10, 10);
-    document.getElementById('melodyEncoded').innerHTML = melodyEncoded;
 }
 
 
@@ -552,9 +551,6 @@ function arrayPausesAdd(n, idd) {
     pause.id = 'p' + n;
     idd.appendChild(pause);
 }
-
-// Temporary output
-document.getElementById('melodyEncoded').innerHTML = melodyEncoded;
 
 
 // !!!!Following the mouse

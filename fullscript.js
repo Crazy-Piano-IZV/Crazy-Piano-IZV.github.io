@@ -291,12 +291,7 @@ function reactToClick(event, baseInQuestion, n) {
             melodyEncoded[Coef] = noteLength * 10 + (melodyEncoded[Coef] % 10);
 
 
-            //changing stick style
-            const stboba = document.getElementById("s" + `${n}`); // stboba is a stick for abobas
-            if (!stboba.classList.contains("stick" + `${2 ** (noteLength - 1)}`)) {
-                stboba.classList.remove(stboba.classList.item(0));
-                stboba.classList.add("stick" + `${2 ** (noteLength - 1)}`);
-            }
+
 
 
 
@@ -369,6 +364,13 @@ function reactToClick(event, baseInQuestion, n) {
 
             }
             melodyEncoded[Coef] = noteLength * 10 + 1;
+
+                                //changing stick style
+            const stboba = document.getElementById("s" + `${n}`); // stboba is a stick for abobas
+            if (!stboba.classList.contains("stick" + `${2 ** (noteLength - 1)}`)) {
+                stboba.classList.remove(stboba.classList.item(0));
+                stboba.classList.add("stick" + `${2 ** (noteLength - 1)}`);
+            }
 
             const stboba2 = document.getElementById("s" + `${n}`); // stboba is stick for abobas
             if (!stboba2.classList.contains("stick" + `${2 ** (noteLength - 1)}`)) {

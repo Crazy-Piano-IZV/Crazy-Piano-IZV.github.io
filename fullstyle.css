@@ -30,6 +30,7 @@ body {
     user-select: none;
     display: inline-block;
   }
+
   
   .white {
     width: 60px;
@@ -264,9 +265,10 @@ body {
 #notechoice-base-itnocg {
   position: fixed;
   top: 0;
-  background: #89b34e;
+  background: transparent;
   height: 60px;
-  width: 100%;
+  width: 90%;
+    
 }
 
 p {

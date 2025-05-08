@@ -196,52 +196,39 @@ function goHome() {
 document.getElementById("toggleButton").addEventListener("click", toggleMenu);
 toggleLanguage();
 
-function hideLibrary() {
-    const library = document.getElementById("musicLibrary");
-    library.classList.add("hidden");
-}
+document.getElementById("toggleButton").addEventListener("click", toggleMenu);
 
-function hideLibrary() {
-    const library = document.getElementById("musicLibrary");
-    library.classList.remove("hidden");
-}
+toggleLanguage();
+
+// Load and preview a track (and set it as current audioBuffer)
 
 document.querySelectorAll('.track').forEach(track => {
     track.addEventListener('click', () => {
         const audioPath = track.getAttribute('data-audio');
-        const soundName = track.querySelector('.info').innerText.split('\n')[0].split(': ')[1]; // Get name
 
-        // Update the text in the display
-        document.getElementById("selectedSoundName").textContent = soundName;
-
-        // Close the menu
-        toggleMenu(); // if toggleMenu is already implemented
-        hideLibrary();
-
-        // Load and assign the sound
         fetch(audioPath)
             .then(res => res.arrayBuffer())
             .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
             .then(decodedBuffer => {
-                audioBuffer = decodedBuffer; // now the piano uses this sound
+                audioBuffer = decodedBuffer; // Now piano uses this audio
+
                 setupAnalyser();
 
-                // 2-second preview
+                // Play a 2-second preview
                 const previewSource = audioContext.createBufferSource();
                 previewSource.buffer = decodedBuffer;
 
-                const previewGain = audioContext.createGain();
+                const previewGain = audioContext.createGain(); // so we can stop it cleanly
                 previewSource.connect(previewGain);
                 previewGain.connect(audioContext.destination);
 
-                previewSource.start(0);
-                previewSource.stop(audioContext.currentTime + 2);
+                previewSource.start(0)
+                previewSource.stop(audioContext.currentTime + 2); // Stop after 2 seconds
+
             })
             .catch(err => console.error("Failed to load audio:", err));
     });
 });
-
-
 
 // Note line part
 

@@ -106,15 +106,15 @@
 
         <div id="theUnlovedAwfullDiv" style="display:flex; flex-direction:column; height: 30%; right:5vh">
             
-            <label for="fileInput" class="button" style="position: relative;">Select a sound</label>
+            <label for="fileInput" class="button" style="position: relative;" data-lang="soundSel"></label>
             <input type="file" id="fileInput" style="display: none; position: relative;"><br>
             
-            <button class="button" onclick="downloadArray();">Download this</button>
+            <button class="button" onclick="downloadArray();" data-lang="Downl" ></button>
             
-            <label for="txtInput" class="button" style="position: relative;">Upload that</label>
+            <label for="txtInput" class="button" style="position: relative;" data-lang="Upl" ></label>
             <input type="file" id="txtInput" style="display: none; position: relative;" accept=".txt">
 
-            <button class="button" onclick="uploadArray()">Load Selected array (wip)</button>
+            <button class="button" onclick="uploadArray()" data-lang="Load"></button>
         </div>
 
         <div id="theCoolAwesomeDiv">

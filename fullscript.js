@@ -175,7 +175,7 @@ function toggleLanguage() {
             home: "Home",
             soundSel: "Select an audio",
             Downl: "Download this",
-            Upl:"Upload sound",
+            Upl:"Upload that",
             Load: "Load Selected array (wip)"
         }
     };

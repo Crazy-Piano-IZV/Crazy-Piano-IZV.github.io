@@ -210,6 +210,7 @@ body {
 }
 
 #musicLibrary {
+    display: none;
     position: absolute;
     max-width: 800px;
     margin-left: 40%;
@@ -219,14 +220,6 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 5;
-    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
-    opacity: 1;
-    pointer-events: auto;
-}
-#musicLibrary.slide-away {
-    transform: translateX(100%);
-    opacity: 0.05;
-    pointer-events: none;        
 }
 .track {
     display: flex;

@@ -240,161 +240,155 @@ body {
 
 /*Marijas daļa*/
 
-.one-4 {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: rgb(0, 0, 0);
-    border-radius: 50%;
-    z-index: 101;
-}
 
 
 #theCoolAwesomeDiv {
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: absolute;
-    left: 10vw;
-    top: 10svh;
-    /*sizee*/
-    width: 80vw;
-    height: 50vh;
-    flex-wrap: wrap
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
+  padding-top: 10vh;
+  left: 10vw;
+  top: 10svh;
+  /*sizee*/
+  width: 80vw;
+  height: 50vh;
+  flex-wrap: wrap
 }
 
 #theUnlovedAwfullDiv {
-    /*temporary parent*/
-    position: absolute;
-    bottom: 10px;
+  /*temporary parent*/
+  position: absolute;
+  bottom: 10px;
 }
 
 #notechoice-base-itnocg {
-    position: fixed;
-    top:0;
-    background: #89b34e;
-    height: 60px;
-    width: 100%;
+  position: fixed;
+  top: 0;
+  background: #89b34e;
+  height: 60px;
+  width: 100%;
 }
 
 p {
-    /* temporary styling */
-    color: navy;
-    width: 50%;
-    text-wrap: wrap;
+  /* temporary styling */
+  color: navy;
+  width: 50%;
+  text-wrap: wrap;
 }
 
 .line-container {
-    width: 98%;
-    position: relative;
-    align-self: center;
-    box-sizing: border-box;
-    height: 17.6vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    /* Evenly space the lines */
-    padding: 0.5vh 0 1.5vh;
-    margin-bottom: 1.1vh;
+  width: 98%;
+  position: relative;
+  align-self: center;
+  box-sizing: border-box;
+  height: 17.6vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* Evenly space the lines */
+  padding: 0.5vh 0 1.5vh;
+  margin-bottom: 1.1vh;
 }
 
 .line {
-    height: 0.2vh;
-    /* Height of each line */
-    background: black;
-    /* Color of the lines */
-    margin: 0;
-    /* Remove any default margin */
+  height: 0.2vh;
+  /* Height of each line */
+  background: black;
+  /* Color of the lines */
+  margin: 0;
+  /* Remove any default margin */
 }
 
 .line-tp {
-    height: 0.2vh;
-    /* Height of each line */
-    background: pink;
-    /* Color of the lines */
-    margin: 0;
+  height: 0.2vh;
+  /* Height of each line */
+  background: transparent;
+  /* Color of the lines */
+  margin: 0;
 }
 
 #reaction-base-container {
-    position: absolute;
-    width: 80vw;
-    /* Full width of the parent */
-    height: 17.6vh;
-    /* Full height of the parent */
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    top: 0;
+  position: absolute;
+  overflow: visible;
+  width: 80vw;
+  /* Full width of the parent */
+  height: 17.6vh;
+  /* Full height of the parent */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  top: 10vh;
 }
 
 .reaction-base-type1 {
-    position: relative;
-    width: 8.5%;
-    height: 17.6vh;
-    background: transparent;
-    padding: 0 0 0vh;
-    /*change to bigger num*/
-    z-index: 10;
-    margin-bottom: 1.1vh;
+  position: relative;
+  width: 8.2%;
+  height: 17.6vh;
+  background: transparent;
+  padding: 0 0 0vh;
+  /*change to bigger num*/
+  z-index: 10;
+  margin-bottom: 1.1vh;
 }
 
 .reaction-base-type2 {
-    position: relative;
-    width: 1%;
-    height: 17.6vh;
-    background: transparent;
-    opacity: 0.25;
-    padding: 0 0 0vh;
-    /*change to bigger num*/
-    z-index: 10;
-    margin-bottom: 1.1vh;
+  position: relative;
+  width: 1%;
+  height: 17.6vh;
+  background: transparent;
+  opacity: 0.25;
+  padding: 0 0 0vh;
+  /*change to bigger num*/
+  z-index: 10;
+  margin-bottom: 1.1vh;
 }
 
 .reaction-base-type2:hover {
-    background: rgba(255, 0, 0, 0.5);
+  background: rgba(255, 0, 0, 0.5);
 }
 
 #vertical-lines {
-    position: relative;
-    margin-top: 5vh;
-    height: 8.8vh;
-    /* Height of the lines */
-    width: 1.6vh;
+  position: relative;
+  margin-top: 5vh;
+  height: 8.8vh;
+  /* Height of the lines */
+  width: 1.6vh;
 }
 
 #vertical-lines::before {
-    content: '';
-    position: absolute;
-    width: 0.4vh;
-    /* Width of the lines */
-    height: 100%;
-    /* Full height of the container */
-    background-color: black;
-    /* Color of the lines */
-    left: 0;
+  content: '';
+  position: absolute;
+  width: 0.4vh;
+  /* Width of the lines */
+  height: 100%;
+  /* Full height of the container */
+  background-color: black;
+  /* Color of the lines */
+  left: 0;
 }
 
 #vertical-lines::after {
-    content: '';
-    position: absolute;
-    width: 0.8vh;
-    /* Width of the lines */
-    height: 100%;
-    /* Full height of the container */
-    background-color: black;
-    /* Color of the lines */
-    right: 0;
+  content: '';
+  position: absolute;
+  width: 0.8vh;
+  /* Width of the lines */
+  height: 100%;
+  /* Full height of the container */
+  background-color: black;
+  /* Color of the lines */
+  right: 0;
 }
 
 .cursor-follower {
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    background-color: rgba(255, 0, 0, 0.5);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    display: none;
-    z-index: 100;
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(255, 0, 0, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 100;
 }
 
 /*notes*/
@@ -409,59 +403,63 @@ p {
 .n16d,
 .n16b {
   width: 20px;
-  height: 10px;
+  height: 14px;
   background-color: #000000;
   border-radius: 50%;
   transform: rotate(-20deg);
-  position: relative;
+  position: absolute;
+  left: calc(50% - 11px);
 }
 
 .n2,
 .n2d,
 .n2b {
   width: 20px;
-  height: 10px;
+  height: 14px;
   border-width: 2px 4px;
   border-color: #000000;
   border-style: solid;
   background-color: transparent;
   border-radius: 50%;
   transform: rotate(-20deg);
-  position: relative;
+  position: absolute;
   box-sizing: border-box;
+  left: calc(50% - 11px);
 }
 
 .n1,
 .n1d,
 .n1b {
-  width: 20px;
-  height: 10px;
-  border-width: 2px 5px;
+  width: 30px;
+  height: 15px;
+  border-width: 3px 8px;
   border-style: solid;
   border-color: #000000;
   background-color: transparent;
   border-radius: 50%;
-  position: relative;
+  position: absolute;
   box-sizing: border-box;
+  left: calc(50% - 15px);
 }
 
 .stick2,
 .stick4,
 .stick8,
 .stick16 {
-  width: 2px;
+  width: 3px;
   height: 40px;
+  left: calc(50% + 5px);
   background: black;
-  position: relative;
+  position: absolute;
 }
 
 .stick8::after,
 .stick16::after {
   content: "";
   position: absolute;
-  width: 12px;
-  height: 10px;
-  border: 4px solid black;
+  width: 15px;
+  height: 30px;
+  border: 6px solid black;
   border-radius: 0 100% 0 0;
   border-right-width: 1px;
   border-left: none;
@@ -473,86 +471,88 @@ p {
 .stick16::before {
   content: "";
   position: absolute;
-  width: 12px;
-  height: 10px;
-  border: 4px solid black;
+  width: 15px;
+  height: 30px;
+  border: 6px solid black;
   border-radius: 0 100% 0 0;
   border-right-width: 1px;
   border-left: none;
   border-bottom: none;
-  top: 10px;
+  top: 15px;
 }
 
 /*pauses*/
 
 
-.pause1 {
-  width: 10px;
-  height: 6px;
-  background: #000000;
-}
-
 .pause2 {
-  width: 10px;
-  height: 6px;
+  position: absolute;
+  width: 30px;
+  height: 1.5vh;
   background: #000000;
+  bottom: 46%;
+  left: calc(50% - 15px);
 }
 
 .pause4 {
-  position: relative;
-  width: 6px;
-  height: 10px;
-  border: 4px solid black;
+  position: absolute;
+  width: 12px;
+  height: 20px;
+  border: 8px solid black;
   border-radius: 0 0 0 70%;
   border-bottom-width: 1px;
   border-right: none;
   border-top: none;
   transform: rotate(45deg);
+  left: calc(50% - 12px);
+  bottom: 43%;
 
 }
 
 .pause4::before {
   content: '';
   position: absolute;
-  width: 5px;
-  height: 10px;
-  border: 4px solid black;
+  width: 10px;
+  height: 20px;
+  border: 8px solid black;
   border-radius: 0 70% 0 0;
   border-top-width: 1px;
   border-bottom: none;
   border-left: none;
-  right: 6px;
+  right: 12px;
 }
 
 
 .pause4::after {
   content: '';
   position: absolute;
-  width: 6px;
-  height: 8px;
+  width: 12px;
+  height: 16px;
   border: solid black;
   border-radius: 100% 0 0 100%;
-  border-width: 2px 4px;
+  border-width: 2px 8px;
   border-right: none;
-  top: 10px;
-  right: -5px;
+  top: 20px;
+  right: -10px;
   box-sizing: border-box;
 }
 
 .pause8,
 .pause16 {
-  width: 2px;
-  height: 20px;
+  position: absolute;
+  width: 3px;
+  height: 30px;
   background: #000000;
   transform: rotate(20deg);
+  left: calc(50% - 8px);
+  bottom: 35%;
 }
 
 .pause8::before,
 .pause16::after {
   content: '';
   position: absolute;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border: 1px solid black;
   border-radius: 0 0 100% 0;
   border-bottom-width: 3px;
@@ -564,8 +564,8 @@ p {
 .pause16::before {
   content: '';
   position: absolute;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border: 1px solid black;
   border-radius: 0 0 100% 0;
   border-bottom-width: 3px;

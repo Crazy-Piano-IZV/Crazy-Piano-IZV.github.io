@@ -617,7 +617,6 @@ function uploadArray() {
         for (let i = 0; i < textFromFileLoaded.length; i += 2) {
             melodyEncoded.push(textFromFileLoaded.substring(i, i + 2));
         }
-        document.getElementById("melodyEncoded").innerHTML = melodyEncoded;
     };
 
     fileReader.readAsText(fileToLoad);

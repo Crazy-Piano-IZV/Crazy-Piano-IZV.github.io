@@ -192,7 +192,7 @@ body {
 }
 
 .button {
-    background-color: white;
+  background-color: white;
   border: 2px solid black;
   color: black;
   font-weight: bold;
@@ -210,7 +210,6 @@ body {
 }
 
 #musicLibrary {
-    display: none;
     position: absolute;
     max-width: 800px;
     margin-left: 40%;

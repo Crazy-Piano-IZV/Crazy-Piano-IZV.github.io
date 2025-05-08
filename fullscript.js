@@ -445,7 +445,7 @@ function reactToClick(event, baseInQuestion, n) {
 
     if (melodyEncoded[(cells - 1) * 6] % 10 > 0) { arrayCellsAdd(n); }
 
-    let min = 58;
+    let min = 60;
     let max = 10;
     const stboba = document.getElementById("s" + n);
     for (i = 1; i <= melodyEncoded[Coef] % 10; i++) {

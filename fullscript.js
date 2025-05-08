@@ -196,6 +196,11 @@ function goHome() {
 document.getElementById("toggleButton").addEventListener("click", toggleMenu);
 toggleLanguage();
 
+function hideLibrary() {
+    const library = document.getElementById("musicLibrary");
+    library.style.display = "none";
+}
+
 document.querySelectorAll('.track').forEach(track => {
     track.addEventListener('click', () => {
         const audioPath = track.getAttribute('data-audio');

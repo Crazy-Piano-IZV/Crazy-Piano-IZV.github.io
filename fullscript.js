@@ -649,7 +649,4 @@ function play() {
         waitTime += 240000 / (BPM * coef);
     }
 }
-        // Update currentTime for the next group of notes
-        waitTime += 240000 / (BPM * coef);
-    }
-}
+

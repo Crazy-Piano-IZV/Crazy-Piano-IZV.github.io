@@ -206,6 +206,7 @@ document.querySelectorAll('.track').forEach(track => {
 
         // Close the menu
         toggleMenu(); // if toggleMenu is already implemented
+        hideLibrary();
 
         // Load and assign the sound
         fetch(audioPath)

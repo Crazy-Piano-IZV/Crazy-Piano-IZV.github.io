@@ -460,8 +460,7 @@ function reactToClick(event, baseInQuestion, n) {
         stboba.classList.remove(stboba.classList.item(0));
         stboba.classList.add("stick1");
     }
-
-    document.getElementById('melodyEncoded').innerHTML = melodyEncoded;// temporary output
+        
 }
 // adding a note cell
 function arrayCellsAdd(idd) {

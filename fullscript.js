@@ -155,7 +155,7 @@ function toggleLanguage() {
         lv: {
             title: "Virtuālās Klavieres",
             library: "Melodiju bibliotēka",
-            download: "Lejupielādēt melodiju",
+            download: "Ielādēt melodiju",
             training: "Apmācības režīms",
             tones: "Mainīt toņus",
             libraryTitle: "Skaņu bibliotēka",
@@ -164,7 +164,7 @@ function toggleLanguage() {
         en: {
             title: "Virtual Piano",
             library: "Melody Library",
-            download: "Download melody",
+            download: "Upload melody",
             training: "Training mode",
             tones: "Change tones",
             libraryTitle: "Sound Library",

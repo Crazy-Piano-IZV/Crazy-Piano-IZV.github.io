@@ -198,7 +198,12 @@ toggleLanguage();
 
 function hideLibrary() {
     const library = document.getElementById("musicLibrary");
-    library.style.display = "none";
+    library.classList.add("hidden");
+}
+
+function hideLibrary() {
+    const library = document.getElementById("musicLibrary");
+    library.classList.remove("hidden");
 }
 
 document.querySelectorAll('.track').forEach(track => {

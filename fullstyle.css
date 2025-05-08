@@ -218,6 +218,11 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 5;
 }
+#musicLibrary.slide-away {
+    transform: translateX(100%);
+    opacity: 0.2;
+    pointer-events: none;
+}
 .track {
     display: flex;
     align-items: center;

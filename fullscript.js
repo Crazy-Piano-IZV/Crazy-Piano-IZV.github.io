@@ -225,6 +225,13 @@ document.querySelectorAll('.track').forEach(track => {
                 previewSource.start(0)
                 previewSource.stop(audioContext.currentTime + 2); // Stop after 2 seconds
 
+                const library = document.getElementById("musicLibrary");
+                library.classList.add("slide-away");
+
+                const menu = document.getElementById("menu");
+                menu.style.left = "-25%";
+                menu.style.opacity = "0";
+
             })
             .catch(err => console.error("Failed to load audio:", err));
     });
